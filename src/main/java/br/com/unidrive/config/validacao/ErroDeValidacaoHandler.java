@@ -3,7 +3,9 @@ package br.com.unidrive.config.validacao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -28,11 +30,16 @@ public class ErroDeValidacaoHandler {
         fieldErrors.forEach(e -> {
             String mensagem = messageSource.getMessage(e, LocaleContextHolder.getLocale());
             ErroDeFormularioDto erro = new ErroDeFormularioDto(e.getField(), mensagem);
-            if (erro.getErro().startsWith("must match ")) erro.setErro("CNPJ no formato invalido!!");
+            if (erro.getErro().startsWith("deve corresponder a ")) erro.setErro("CNPJ no formato invalido!!");
             dto.add(erro);
         });
 
         return dto;
     }
 
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ErroDeFormularioDto> DataIntegrityViolation(DataIntegrityViolationException exception){
+        var response = new ErroDeFormularioDto(exception.getMessage(), exception.getCause().toString());
+        return new ResponseEntity(response, HttpStatus.CONFLICT);
+    }
 }
