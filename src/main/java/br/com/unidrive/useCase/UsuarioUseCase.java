@@ -2,9 +2,11 @@ package br.com.unidrive.useCase;
 
 
 import br.com.unidrive.config.security.TokenService;
+import br.com.unidrive.controller.dto.ResponseDto;
 import br.com.unidrive.controller.dto.UsuarioDto;
 import br.com.unidrive.controller.form.AtualizacaoCadastroForm;
 import br.com.unidrive.controller.form.UsuarioForm;
+import br.com.unidrive.model.Concessionaria;
 import br.com.unidrive.model.Usuario;
 import br.com.unidrive.repository.UsuarioRepository;
 import org.slf4j.Logger;
@@ -137,7 +139,6 @@ public class UsuarioUseCase {
 
     public ResponseEntity<?> listarTodosUsuario() {
         List<Usuario> usuarios = usuarioRepository.findAll();
-        usuarios.remove(usuarioRepository.findByEmail("admin@root.com").get());
 
         List<UsuarioDto> usuarioDtos = new ArrayList<>();
 
@@ -146,5 +147,20 @@ public class UsuarioUseCase {
         }
 
         return ResponseEntity.ok(usuarioDtos);
+    }
+
+    public Usuario obterUsuarioPorToken(String token) {
+        return usuarioToken(token);
+    }
+
+    public ResponseDto vincularConcessionaria(Usuario usuario, Concessionaria concessionariaCadastrada) {
+        try {
+            usuario.setConcessionaria(concessionariaCadastrada);
+            usuarioRepository.save(usuario);
+            return new ResponseDto(HttpStatus.ACCEPTED, "Concessionaria vinculada ao usuario");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseDto(HttpStatus.BAD_REQUEST, e.getMessage());
+        }
     }
 }

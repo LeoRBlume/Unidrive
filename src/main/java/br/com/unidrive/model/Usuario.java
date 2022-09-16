@@ -20,6 +20,9 @@ public class Usuario implements UserDetails, Serializable {
     private String email;
     private String senha;
 
+    @OneToOne
+    private Concessionaria concessionaria;
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Perfil> perfis = new ArrayList<>();
@@ -54,6 +57,14 @@ public class Usuario implements UserDetails, Serializable {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Concessionaria getConcessionaria() {
+        return concessionaria;
+    }
+
+    public void setConcessionaria(Concessionaria concessionaria) {
+        this.concessionaria = concessionaria;
     }
 
     @Override

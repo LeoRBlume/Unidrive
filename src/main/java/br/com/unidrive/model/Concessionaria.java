@@ -25,4 +25,5 @@ public class Concessionaria {
 
     private Timestamp dt_criacao;
 
+    private Boolean cadastroAtivo;
 }

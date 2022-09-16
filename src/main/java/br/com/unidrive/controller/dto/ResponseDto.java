@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 
 @Data
 @AllArgsConstructor
-public class CadastroConcessionariaDto {
+public class ResponseDto {
     private HttpStatus status;
     private String resposta;
 
