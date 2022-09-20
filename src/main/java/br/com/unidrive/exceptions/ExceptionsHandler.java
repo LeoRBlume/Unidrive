@@ -13,13 +13,13 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> dataIntegrityViolation(DataIntegrityViolationException exception) {
-        return ResponseEntity.badRequest().body(exception.getMessage());
+        return ResponseEntity.badRequest().body(DataIntegrityViolationException.class + ": " + exception.getMessage());
     }
 
 
     @ExceptionHandler(SignatureException.class)
     public ResponseEntity<String> signatureException(SignatureException exception) {
-        return ResponseEntity.badRequest().body(exception.getMessage());
+        return  ResponseEntity.badRequest().body(SignatureException.class + ": " + exception.getMessage());
     }
 
     @ExceptionHandler(Exception.class)

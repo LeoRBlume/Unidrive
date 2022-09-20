@@ -163,4 +163,20 @@ public class UsuarioUseCase {
             return new ResponseDto(HttpStatus.BAD_REQUEST, e.getMessage());
         }
     }
+
+    public ResponseEntity<?> ativarCadastroConcessionaria(String email) {
+
+       var usuarioOp = usuarioRepository.findByEmail(email);
+
+       if (!usuarioOp.isPresent()) return ResponseEntity.badRequest().build();
+
+       var usuario = usuarioOp.get();
+
+       usuario.getConcessionaria().setCadastroAtivo(true);
+
+       usuarioRepository.save(usuario);
+
+        return ResponseEntity.ok().build();
+
+    }
 }

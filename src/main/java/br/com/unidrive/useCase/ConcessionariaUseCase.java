@@ -48,5 +48,4 @@ public class ConcessionariaUseCase {
         LOGGER.info("Concessionaria cadastrada no banco!");
         return concessionaria;
     }
-
 }

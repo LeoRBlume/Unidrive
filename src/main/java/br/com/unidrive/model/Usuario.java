@@ -67,6 +67,14 @@ public class Usuario implements UserDetails, Serializable {
         this.concessionaria = concessionaria;
     }
 
+    public List<Perfil> getPerfis() {
+        return perfis;
+    }
+
+    public void setPerfis(List<Perfil> perfis) {
+        this.perfis = perfis;
+    }
+
     @Override
     public String toString() {
         return "Usuario{" +
@@ -74,6 +82,8 @@ public class Usuario implements UserDetails, Serializable {
                 ", nome='" + nome + '\'' +
                 ", email='" + email + '\'' +
                 ", senha='" + senha + '\'' +
+                ", concessionaria=" + concessionaria +
+                ", perfis=" + perfis +
                 '}';
     }
 

@@ -56,4 +56,13 @@ public class UsuarioController {
         LOGGER.info("Metodo para listar todos os usuarios finalizado!");
         return response;
     }
+
+    @PutMapping("/ativar")
+    public ResponseEntity<?> ativarCadastroConcessionaria(@RequestParam String email) {
+
+        LOGGER.info("Endpoint para ativar o cadastro da concessionaria");
+        ResponseEntity<?> response = useCase.ativarCadastroConcessionaria(email);
+        LOGGER.info("Metodo para ativar usuario finalizado!");
+        return response;
+    }
 }
