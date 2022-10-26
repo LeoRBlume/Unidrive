@@ -74,8 +74,7 @@ public class ConcessionariaController {
         return concessionariaUseCase.atualizarConcessionaria(usuario, atualizacaoConcessionariaForm);
     }
 
-    @GetMapping
-    @RequestMapping("/carros")
+    @GetMapping("/carros")
     public List<Carro> obterCarrosConcessionaria(@RequestHeader(value = "Authorization") String token){
 
         LOGGER.info("Obtendo usuario...");

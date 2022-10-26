@@ -1,6 +1,7 @@
 package br.com.unidrive.controller;
 
 import br.com.unidrive.controller.form.CarroForm;
+import br.com.unidrive.model.Carro;
 import br.com.unidrive.useCase.CarroUseCase;
 import br.com.unidrive.useCase.UsuarioUseCase;
 import org.slf4j.Logger;
@@ -19,7 +20,7 @@ public class CarroController {
     private static final Logger LOGGER = LoggerFactory.getLogger(CarroController.class);
 
     @Autowired
-    CarroUseCase useCase;
+    CarroUseCase carroUseCase;
 
     @Autowired
     UsuarioUseCase usuarioUseCase;
@@ -31,7 +32,21 @@ public class CarroController {
         var usuario = usuarioUseCase.obterUsuarioPorToken(token);
         LOGGER.info("Usuario obetido!");
 
-        return useCase.cadastrarCarros(carroForm, usuario);
+        return carroUseCase.cadastrarCarros(carroForm, usuario);
+    }
+
+    @DeleteMapping
+    public ResponseEntity deletarCarro(@RequestBody List<Carro> carros, @RequestHeader(value = "Authorization") String token) {
+
+        LOGGER.info("Obtendo usuario...");
+        var usuario = usuarioUseCase.obterUsuarioPorToken(token);
+        LOGGER.info("Usuario obetido!");
+
+        var response = carroUseCase.deletarCarros(carros, usuario);
+
+       if (response != null) return ResponseEntity.ok(response);
+        else return ResponseEntity.badRequest().build();
+
     }
 
 }
