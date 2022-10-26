@@ -2,7 +2,11 @@ package br.com.unidrive.controller.dto;
 
 
 import br.com.unidrive.model.Usuario;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@NoArgsConstructor
 public class UsuarioDto {
 
     private String nome;
@@ -11,9 +15,6 @@ public class UsuarioDto {
 
     public static UsuarioDto converter(Usuario usuario) {
         return new UsuarioDto(usuario.getNome(), usuario.getEmail(), "Senha não pode ser retornada");
-    }
-
-    public UsuarioDto() {
     }
 
     public UsuarioDto(String nome, String email, String senha) {
@@ -25,34 +26,12 @@ public class UsuarioDto {
     public void converterAtualizacoes(Usuario usuario) {
         this.nome = usuario.getNome();
         this.email = usuario.getEmail();
-        if (this.senha == null) this.setSenha("Senha inalterada");
+        if (this.senha == null){
+
+            this.setSenha("Senha inalterada");
+        }
+        else this.setSenha("Senha alterada com sucesso!!");
     }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-
     @Override
     public String toString() {
         return "UsuarioDto{" +

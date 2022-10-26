@@ -4,13 +4,11 @@ package br.com.unidrive.useCase;
 import br.com.unidrive.config.security.TokenService;
 import br.com.unidrive.controller.dto.ResponseDto;
 import br.com.unidrive.controller.dto.UsuarioDto;
-import br.com.unidrive.controller.form.AtualizacaoCadastroForm;
+import br.com.unidrive.controller.form.AtualizacaoUsuarioForm;
 import br.com.unidrive.controller.form.UsuarioForm;
 import br.com.unidrive.model.Concessionaria;
 import br.com.unidrive.model.Usuario;
 import br.com.unidrive.repository.UsuarioRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -20,15 +18,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.mail.internet.InternetAddress;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 
 @Component
 public class UsuarioUseCase {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioUseCase.class);
 
     PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -40,7 +35,6 @@ public class UsuarioUseCase {
 
     public ResponseEntity<String> cadastrarUsuario(UsuarioForm usuarioForm) {
 
-        LOGGER.info("Iniciando metodo para cadastrar o usuario...");
 
         try {
 
@@ -50,15 +44,12 @@ public class UsuarioUseCase {
             if (!validandoEmail(usuarioForm.getEmail()))
                 return new ResponseEntity<>("Formato do email invalido", HttpStatus.BAD_REQUEST);
 
-            LOGGER.info("Formato de email valido, adcionando email");
-            usuario.setEmail(usuarioForm.getEmail());
+            usuario.setEmail(usuarioForm.getEmail().toLowerCase());
 
-            LOGGER.info("Criptografando a senha no banco");
             usuario.setSenha(passwordEncoder.encode(usuarioForm.getSenha()));
 
             usuarioRepository.save(usuario);
 
-            LOGGER.info("Fim do metodo para cadastrar usuario!");
 
             return new ResponseEntity<>("Usuario cadastrado com sucesso!", HttpStatus.OK);
 
@@ -100,21 +91,17 @@ public class UsuarioUseCase {
         return tokenService.getIdUsuario(token);
     }
 
-    public ResponseEntity<UsuarioDto> atualizarCadastro(String tokenBearer, AtualizacaoCadastroForm form) {
-        LOGGER.info("Metodo para atualizar o cadastro do usuario");
+    public ResponseEntity<UsuarioDto> atualizarCadastro(String tokenBearer, AtualizacaoUsuarioForm form) {
         Usuario usuario = usuarioRepository.getById(obterIdUsuario(tokenBearer));
         UsuarioDto usuarioDto = new UsuarioDto();
 
         if (form.getNome() != null) {
-            LOGGER.info("Atualizando o nome do usuario");
             usuario.setNome(form.getNome());
         }
         if (form.getEmail() != null) {
-            LOGGER.info("Atualizando o email do usuario");
-            usuario.setEmail(form.getEmail());
+            usuario.setEmail(form.getEmail().toLowerCase());
         }
         if (form.getSenha() != null) {
-            LOGGER.info("Atualizando a senha do usuario");
             usuario.setSenha(passwordEncoder.encode(form.getSenha()));
             usuarioDto.setSenha("Senha alterada com sucesso!");
         }
@@ -137,18 +124,6 @@ public class UsuarioUseCase {
         return usuarioRepository.getById(tokenService.getIdUsuario(token));
     }
 
-    public ResponseEntity<?> listarTodosUsuario() {
-        List<Usuario> usuarios = usuarioRepository.findAll();
-
-        List<UsuarioDto> usuarioDtos = new ArrayList<>();
-
-        for (Usuario u : usuarios) {
-            usuarioDtos.add(UsuarioDto.converter(u));
-        }
-
-        return ResponseEntity.ok(usuarioDtos);
-    }
-
     public Usuario obterUsuarioPorToken(String token) {
         return usuarioToken(token);
     }
@@ -162,21 +137,5 @@ public class UsuarioUseCase {
             e.printStackTrace();
             return new ResponseDto(HttpStatus.BAD_REQUEST, e.getMessage());
         }
-    }
-
-    public ResponseEntity<?> ativarCadastroConcessionaria(String email) {
-
-       var usuarioOp = usuarioRepository.findByEmail(email);
-
-       if (!usuarioOp.isPresent()) return ResponseEntity.badRequest().build();
-
-       var usuario = usuarioOp.get();
-
-       usuario.getConcessionaria().setCadastroAtivo(true);
-
-       usuarioRepository.save(usuario);
-
-        return ResponseEntity.ok().build();
-
     }
 }

@@ -2,7 +2,7 @@ package br.com.unidrive.controller;
 
 
 import br.com.unidrive.controller.dto.UsuarioDto;
-import br.com.unidrive.controller.form.AtualizacaoCadastroForm;
+import br.com.unidrive.controller.form.AtualizacaoUsuarioForm;
 import br.com.unidrive.controller.form.UsuarioForm;
 import br.com.unidrive.useCase.UsuarioUseCase;
 import org.slf4j.Logger;
@@ -24,7 +24,7 @@ public class UsuarioController {
     UsuarioUseCase useCase;
 
     @GetMapping
-    public ResponseEntity<UsuarioDto> obterUsuarioLogado(@RequestHeader(value = "Authorization") String token) {
+    public ResponseEntity<UsuarioDto> obterUsuario(@RequestHeader(value = "Authorization") String token) {
         LOGGER.info("Metodo para retornar o usuario...");
         ResponseEntity<UsuarioDto> response = useCase.obterUsuario(token);
         LOGGER.info("Usuario retornado!");
@@ -40,29 +40,11 @@ public class UsuarioController {
     }
 
     @PutMapping
-    public ResponseEntity<UsuarioDto> atualizarCadastroUsuario(@RequestHeader(value = "Authorization") String token, @RequestBody AtualizacaoCadastroForm form) {
+    public ResponseEntity<UsuarioDto> atualizarUsuario(@RequestHeader(value = "Authorization") String token, @RequestBody AtualizacaoUsuarioForm form) {
         LOGGER.info("Chamando endpoint para atualizar cadastro do usuario...");
         ResponseEntity<UsuarioDto> response = useCase.atualizarCadastro(token, form);
         LOGGER.info("Metodo para cadastrar o usuario encerrado!");
         return response;
     }
 
-
-    @GetMapping
-    @RequestMapping("/listar")
-    public ResponseEntity<?> listarTodosUsuario() {
-        LOGGER.info("Endpoint para listar todos os usuarios...");
-        ResponseEntity<?> response = useCase.listarTodosUsuario();
-        LOGGER.info("Metodo para listar todos os usuarios finalizado!");
-        return response;
-    }
-
-    @PutMapping("/ativar")
-    public ResponseEntity<?> ativarCadastroConcessionaria(@RequestParam String email) {
-
-        LOGGER.info("Endpoint para ativar o cadastro da concessionaria");
-        ResponseEntity<?> response = useCase.ativarCadastroConcessionaria(email);
-        LOGGER.info("Metodo para ativar usuario finalizado!");
-        return response;
-    }
 }

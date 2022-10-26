@@ -1,23 +1,25 @@
 package br.com.unidrive.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.sql.Timestamp;
 
 @Entity
 @Data
-@AllArgsConstructor
-@NoArgsConstructor
 @ToString
+@NoArgsConstructor
 public class Concessionaria {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Pattern(regexp = "(^\\d{2}.\\d{3}.\\d{3}/\\d{4}-\\d{2}$)")
+    @Column(unique = true)
     private String cnpj;
 
     @Column(unique = true)
@@ -25,5 +27,9 @@ public class Concessionaria {
 
     private Timestamp dt_criacao;
 
-    private Boolean cadastroAtivo;
+    public Concessionaria(String cnpj, String nome, Timestamp dt_criacao) {
+        this.cnpj = cnpj;
+        this.nome = nome;
+        this.dt_criacao = dt_criacao;
+    }
 }

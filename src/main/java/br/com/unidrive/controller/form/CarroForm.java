@@ -2,22 +2,22 @@ package br.com.unidrive.controller.form;
 
 import javax.validation.constraints.NotNull;
 
+
 public class CarroForm {
     @NotNull
-    private String nome;
+    public String nome;
     @NotNull
-    private String quilometragem;
+    public String quilometragem;
     @NotNull
-    private String documentacao;
+    public String documentacao;
     @NotNull
-    private String cor;
+    public String cor;
     @NotNull
-    private String modelo;
+    public String modelo;
     @NotNull
-    private String renovam;
+    public String renovam;
     @NotNull
-    private String placa;
-    @NotNull
-    private String status;
+    public String placa;
 
 }
+

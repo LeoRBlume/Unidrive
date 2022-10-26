@@ -29,7 +29,7 @@ public class AutenticacaoController {
     private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioController.class);
 
     @PostMapping
-    public ResponseEntity<TokenDto> autenticar(@RequestBody LoginForm loginForm) {
+    public ResponseEntity<TokenDto> autenticarLogin(@RequestBody LoginForm loginForm) {
 
         LOGGER.info("Metodo para realizar o login...");
 
