@@ -10,4 +10,6 @@ public interface CarroRepository extends JpaRepository<Carro, Long> {
 
     List<Carro> findAllByConcessionaria(Concessionaria concessionaria);
 
+    List<Carro> findAllByModelo(String modelo);
+
 }

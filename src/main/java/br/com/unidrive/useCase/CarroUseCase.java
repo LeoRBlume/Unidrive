@@ -35,7 +35,6 @@ public class CarroUseCase {
         var time = Timestamp.valueOf(LocalDateTime.now());
 
         for (CarroForm c : carroFormList) {
-
             var carro = Carro.cadastroCarroForm(c, time, usuario.getConcessionaria());
             carroRepository.save(carro);
         }
@@ -48,6 +47,7 @@ public class CarroUseCase {
         return carroRepository.findAllByConcessionaria(concessionaria);
 
     }
+
     public List<Carro> deletarCarros(List<Carro> carros, Usuario usuario) {
 
         var concessionaria = concessionariaUseCase.obterConcessionaria(usuario);
@@ -61,9 +61,6 @@ public class CarroUseCase {
                 System.out.println(c);
                 for (Carro c1 : carrosConcessionaria) System.out.println(c1);
                 if (carrosConcessionaria.contains(c)) {
-
-
-
                     carroRepository.delete(c);
                     carrosExcluidos.add(c);
                 }
@@ -71,6 +68,18 @@ public class CarroUseCase {
             return carrosExcluidos;
         }
         return null;
+
+    }
+
+    public List<Carro> obterTodosCarros() {
+
+        return carroRepository.findAll();
+
+    }
+
+    public List<Carro> obterCarrosPorModelo(String modelo) {
+
+        return carroRepository.findAllByModelo(modelo.toUpperCase());
 
     }
 }
