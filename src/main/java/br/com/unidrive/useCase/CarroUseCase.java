@@ -32,7 +32,7 @@ public class CarroUseCase {
             return ResponseEntity.badRequest().build();
         }
 
-        var time = Timestamp.valueOf(LocalDateTime.now());
+        var time = Timestamp.valueOf(LocalDateTime.now()).toLocalDateTime().toString();
 
         for (CarroForm c : carroFormList) {
             var carro = Carro.cadastroCarroForm(c, time, usuario.getConcessionaria());

@@ -25,9 +25,9 @@ public class Concessionaria {
     @Column(unique = true)
     private String nome;
 
-    private Timestamp dt_criacao;
+    private String dt_criacao;
 
-    public Concessionaria(String cnpj, String nome, Timestamp dt_criacao) {
+    public Concessionaria(String cnpj, String nome, String dt_criacao) {
         this.cnpj = cnpj;
         this.nome = nome;
         this.dt_criacao = dt_criacao;

@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 
 @Entity
 @Data
@@ -13,7 +12,7 @@ import java.sql.Timestamp;
 public class Carro {
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nome;
     private String quilometragem;
@@ -26,11 +25,11 @@ public class Carro {
     @Column(unique = true)
     private String placa;
     private String status;
-    private Timestamp dt_criacao;
+    private String dt_criacao;
     @OneToOne
     private Concessionaria concessionaria;
 
-    public static Carro cadastroCarroForm(CarroForm carroForm, Timestamp dt_criacao, Concessionaria concessionaria) {
+    public static Carro cadastroCarroForm(CarroForm carroForm, String dt_criacao, Concessionaria concessionaria) {
 
         var carro = new Carro();
 

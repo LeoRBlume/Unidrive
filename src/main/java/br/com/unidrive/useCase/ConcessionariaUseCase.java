@@ -31,7 +31,7 @@ public class ConcessionariaUseCase {
             return null;
         }
 
-        var time = Timestamp.valueOf(LocalDateTime.now());
+        var time = Timestamp.valueOf(LocalDateTime.now()).toLocalDateTime().toString();
 
         var concessionaria = new Concessionaria(
                 cadastrarConcessionariaForm.getCnpj(),
