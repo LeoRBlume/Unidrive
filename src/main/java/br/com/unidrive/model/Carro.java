@@ -24,7 +24,8 @@ public class Carro {
     private String renovam;
     @Column(unique = true)
     private String placa;
-    private String status;
+
+    private String valorAlugar;
     private String dt_criacao;
     @OneToOne
     private Concessionaria concessionaria;
@@ -40,9 +41,9 @@ public class Carro {
         carro.modelo = carroForm.modelo.toUpperCase();
         carro.renovam = carroForm.renovam;
         carro.placa = carroForm.placa.toUpperCase();
-        carro.status = "CRIADO";
         carro.dt_criacao = dt_criacao;
         carro.concessionaria = concessionaria;
+        carro.valorAlugar = carroForm.valorAlugar;
 
         return carro;
     }

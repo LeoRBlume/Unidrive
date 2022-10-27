@@ -19,5 +19,8 @@ public class CarroForm {
     @NotNull
     public String placa;
 
+    @NotNull
+    public String valorAlugar;
+
 }
 
