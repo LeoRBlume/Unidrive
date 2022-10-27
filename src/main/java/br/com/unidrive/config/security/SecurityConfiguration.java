@@ -46,6 +46,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/concessionaria").permitAll()
                 .antMatchers("/concessionaria/**").permitAll()
                 .antMatchers("/carro").permitAll()
+                .antMatchers("/carro/**").permitAll()
+
                 .anyRequest().authenticated()
                 .and()
                 .csrf().disable()

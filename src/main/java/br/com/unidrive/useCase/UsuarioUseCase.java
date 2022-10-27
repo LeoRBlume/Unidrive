@@ -6,6 +6,7 @@ import br.com.unidrive.controller.dto.ResponseDto;
 import br.com.unidrive.controller.dto.UsuarioDto;
 import br.com.unidrive.controller.form.AtualizacaoUsuarioForm;
 import br.com.unidrive.controller.form.UsuarioForm;
+import br.com.unidrive.model.Carro;
 import br.com.unidrive.model.Concessionaria;
 import br.com.unidrive.model.Usuario;
 import br.com.unidrive.repository.UsuarioRepository;
@@ -18,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import javax.mail.internet.InternetAddress;
+import java.util.List;
 import java.util.Optional;
 
 
