@@ -43,12 +43,6 @@ public class AgendamentoUseCase {
 
     }
 
-    public List<AgendamentoDto> obterAgendamentosPorCarro(Carro carro) {
-
-        return AgendamentoDto.transformarListaAgendamento(agendamentoRepository.findAllByCarro(carro));
-
-
-    }
 
     public List<AgendamentoDto> obterAgendamentosPorConcessionaria(Concessionaria concessionaria) {
 
@@ -66,6 +60,12 @@ public class AgendamentoUseCase {
         } else {
             return null;
         }
+
+    }
+
+    public List<AgendamentoDto> obterAgendamentosPorCarro(Carro carro) {
+
+        return AgendamentoDto.transformarListaAgendamento(agendamentoRepository.findAllByCarro(carro));
 
     }
 }

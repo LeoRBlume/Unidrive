@@ -6,18 +6,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 @Data
 @AllArgsConstructor
 public class AgendamentoDto {
 
-    @NotNull
-    String dt_inicial;
+    public String dt_agendamento;
 
-    @NotNull
-    String dt_final;
+    public String hr_inicial;
+
+    public String hr_final;
 
     @ManyToOne
     Carro carro;
@@ -27,7 +26,7 @@ public class AgendamentoDto {
         var listaDto = new ArrayList<AgendamentoDto>();
 
         for (Agendamento a : allByCarro){
-            listaDto.add(new AgendamentoDto(a.getDt_inicial(), a.getDt_final(), a.getCarro()));
+            listaDto.add(new AgendamentoDto(a.getDt_agendamento(), a.getHr_inicial(), a.getHr_final(),a.getCarro()));
         }
         return listaDto;
     }

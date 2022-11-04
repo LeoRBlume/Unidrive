@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @ControllerAdvice
 @RestControllerAdvice
 public class ExceptionsHandler {
-/*
+
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> dataIntegrityViolation(DataIntegrityViolationException exception) {
         return ResponseEntity.badRequest().body(DataIntegrityViolationException.class + ": " + exception.getMessage());
@@ -19,11 +19,11 @@ public class ExceptionsHandler {
 
     @ExceptionHandler(SignatureException.class)
     public ResponseEntity<String> signatureException(SignatureException exception) {
-        return  ResponseEntity.badRequest().body(SignatureException.class + ": " + exception.getMessage());
+        return ResponseEntity.badRequest().body(SignatureException.class + ": " + exception.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> exptions(Exception exception) {
         return ResponseEntity.badRequest().body(exception.getMessage());
-    }*/
+    }
 }

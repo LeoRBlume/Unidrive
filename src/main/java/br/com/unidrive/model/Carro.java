@@ -14,18 +14,18 @@ public class Carro {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nome;
+    private String marca;
     private String quilometragem;
     @Column(unique = true)
     private String documentacao;
     private String cor;
     private String modelo;
+
+    private String ano;
     @Column(unique = true)
     private String renovam;
     @Column(unique = true)
     private String placa;
-
-    private String valorAlugar;
     private String dt_criacao;
     @OneToOne
     private Concessionaria concessionaria;
@@ -34,7 +34,7 @@ public class Carro {
 
         var carro = new Carro();
 
-        carro.nome = carroForm.nome.toUpperCase();
+        carro.marca = carroForm.marca.toUpperCase();
         carro.quilometragem = carroForm.quilometragem;
         carro.documentacao = carroForm.documentacao;
         carro.cor = carroForm.cor;
@@ -43,7 +43,7 @@ public class Carro {
         carro.placa = carroForm.placa.toUpperCase();
         carro.dt_criacao = dt_criacao;
         carro.concessionaria = concessionaria;
-        carro.valorAlugar = carroForm.valorAlugar;
+        carro.ano = carroForm.ano;
 
         return carro;
     }

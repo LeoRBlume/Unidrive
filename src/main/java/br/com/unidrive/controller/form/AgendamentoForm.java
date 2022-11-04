@@ -8,8 +8,9 @@ import lombok.ToString;
 @Data
 public class AgendamentoForm {
 
-    public String dt_inicial;
-    public String dt_final;
+    public String dt_agendamento;
+    public String hr_inicial;
+    public String hr_final;
     public Carro carro;
 
 }

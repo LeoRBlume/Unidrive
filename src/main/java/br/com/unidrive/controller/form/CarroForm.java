@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 
 public class CarroForm {
     @NotNull
-    public String nome;
+    public String marca;
     @NotNull
     public String quilometragem;
     @NotNull
@@ -18,9 +18,6 @@ public class CarroForm {
     public String renovam;
     @NotNull
     public String placa;
-
-    @NotNull
-    public String valorAlugar;
-
+    public String ano;
 }
 
