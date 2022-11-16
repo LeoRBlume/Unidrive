@@ -22,6 +22,8 @@ public class ConcessionariaUseCase {
     ConcessionariaRepository concessionariaRepository;
 
     @Autowired
+    EnderecoUseCase enderecoUseCase;
+    @Autowired
     CarroUseCase carroUseCase;
 
 
@@ -33,10 +35,13 @@ public class ConcessionariaUseCase {
 
         var time = Timestamp.valueOf(LocalDateTime.now()).toLocalDateTime().toString();
 
+        var endereco = enderecoUseCase.cadastrarEndereco(cadastrarConcessionariaForm.getEnderecoForm());
+
         var concessionaria = new Concessionaria(
-                cadastrarConcessionariaForm.getCnpj(),
-                cadastrarConcessionariaForm.getNome(),
-                time);
+                cadastrarConcessionariaForm,
+                time,
+                endereco
+                );
 
         concessionariaRepository.save(concessionaria);
 
@@ -60,7 +65,7 @@ public class ConcessionariaUseCase {
 
         if (concessionaria != null) {
 
-            concessionaria.setNome(atualizacaoConcessionariaForm.getNome());
+            concessionaria.setNomeFantasia(atualizacaoConcessionariaForm.getNome());
             concessionariaRepository.save(concessionaria);
 
             return ResponseEntity.ok(concessionaria);

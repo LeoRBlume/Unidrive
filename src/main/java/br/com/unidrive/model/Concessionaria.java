@@ -1,12 +1,12 @@
 package br.com.unidrive.model;
 
+import br.com.unidrive.controller.form.CadastrarConcessionariaForm;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
-import java.sql.Timestamp;
 
 @Entity
 @Data
@@ -23,13 +23,24 @@ public class Concessionaria {
     private String cnpj;
 
     @Column(unique = true)
-    private String nome;
+    private String nomeFantasia;
+
+    private String email;
+
+    private String telefone;
 
     private String dt_criacao;
 
-    public Concessionaria(String cnpj, String nome, String dt_criacao) {
-        this.cnpj = cnpj;
-        this.nome = nome;
-        this.dt_criacao = dt_criacao;
+    @ManyToOne
+    private Endereco endereco;
+
+    public Concessionaria(CadastrarConcessionariaForm cadastrarConcessionariaForm, String time, Endereco endereco) {
+        this.cnpj = cadastrarConcessionariaForm.getCnpj();
+        this.nomeFantasia = cadastrarConcessionariaForm.getNomeFantasia();
+        this.email = cadastrarConcessionariaForm.getEmail();
+        this.telefone = cadastrarConcessionariaForm.getTelefone();
+        this.dt_criacao = time;
+        this.endereco = endereco;
+
     }
 }

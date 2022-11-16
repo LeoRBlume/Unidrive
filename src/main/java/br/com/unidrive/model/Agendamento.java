@@ -20,14 +20,14 @@ public class Agendamento {
     @ManyToOne
     private Usuario usuario;
 
-    public String dt_agendamento;
+    private String dt_agendamento;
 
-    public String hr_inicial;
+    private String hr_inicial;
 
-    public String hr_final;
+    private String hr_final;
 
     @ManyToOne
-    Carro carro;
+    private Carro carro;
 
     public Agendamento(Usuario usuario, AgendamentoForm agendamentoForm) {
         this.usuario = usuario;
