@@ -31,7 +31,7 @@ public class Concessionaria {
 
     private String dt_criacao;
 
-    @ManyToOne
+    @OneToOne
     private Endereco endereco;
 
     public Concessionaria(CadastrarConcessionariaForm cadastrarConcessionariaForm, String time, Endereco endereco) {

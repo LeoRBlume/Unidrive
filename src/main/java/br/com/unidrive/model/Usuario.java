@@ -20,6 +20,17 @@ public class Usuario implements UserDetails, Serializable {
     private String email;
     private String senha;
 
+    @Column(unique = true)
+    private String cpf;
+
+    private String telefone;
+
+    @Column(unique = true)
+    private String cnh;
+
+    @OneToOne
+    private Endereco endereco;
+
     @OneToOne
     private Concessionaria concessionaria;
 
@@ -73,6 +84,38 @@ public class Usuario implements UserDetails, Serializable {
 
     public void setPerfis(List<Perfil> perfis) {
         this.perfis = perfis;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getCnh() {
+        return cnh;
+    }
+
+    public void setCnh(String cnh) {
+        this.cnh = cnh;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
 
     @Override

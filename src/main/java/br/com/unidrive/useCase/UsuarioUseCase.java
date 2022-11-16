@@ -33,6 +33,9 @@ public class UsuarioUseCase {
     @Autowired
     TokenService tokenService;
 
+    @Autowired
+    EnderecoUseCase enderecoUseCase;
+
     public ResponseEntity<String> cadastrarUsuario(UsuarioForm usuarioForm) {
 
 
@@ -47,6 +50,14 @@ public class UsuarioUseCase {
             usuario.setEmail(usuarioForm.getEmail().toLowerCase());
 
             usuario.setSenha(passwordEncoder.encode(usuarioForm.getSenha()));
+
+            usuario.setCnh(usuarioForm.getCnh());
+
+            usuario.setCpf(usuarioForm.getCpf());
+
+            usuario.setTelefone(usuarioForm.getTelefone());
+
+            usuario.setEndereco(enderecoUseCase.cadastrarEndereco(usuarioForm.getEndereco()));
 
             usuarioRepository.save(usuario);
 

@@ -1,11 +1,18 @@
 package br.com.unidrive.controller.form;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class UsuarioForm {
 
     @NotBlank(message = "Nome é obrigatorio!!")
@@ -23,38 +30,12 @@ public class UsuarioForm {
     @Length(min = 7, message = "Senha só é valida com mais de 7 caractres")
     private String senha;
 
+    private String cpf;
 
-    public String getNome() {
-        return nome;
-    }
+    private String telefone;
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    private String cnh;
 
-    public String getEmail() {
-        return email;
-    }
+    private EnderecoForm endereco;
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-
-    @Override
-    public String toString() {
-        return "UsuarioForm{" +
-                "nome='" + nome + '\'' +
-                ", email='" + email + '\'' +
-                ", senha='" + senha + '\'' +
-                '}';
-    }
 }
