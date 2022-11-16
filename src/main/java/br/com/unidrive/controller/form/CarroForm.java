@@ -15,7 +15,7 @@ public class CarroForm {
     @NotNull
     public String modelo;
     @NotNull
-    public String renovam;
+    public String renavam;
     @NotNull
     public String placa;
     public String ano;

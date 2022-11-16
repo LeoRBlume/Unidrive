@@ -23,7 +23,7 @@ public class Carro {
 
     private String ano;
     @Column(unique = true)
-    private String renovam;
+    private String renavam;
     @Column(unique = true)
     private String placa;
     private String dt_criacao;
@@ -39,7 +39,7 @@ public class Carro {
         carro.documentacao = carroForm.documentacao;
         carro.cor = carroForm.cor;
         carro.modelo = carroForm.modelo.toUpperCase();
-        carro.renovam = carroForm.renovam;
+        carro.renavam = carroForm.renavam;
         carro.placa = carroForm.placa.toUpperCase();
         carro.dt_criacao = dt_criacao;
         carro.concessionaria = concessionaria;
