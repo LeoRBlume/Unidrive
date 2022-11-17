@@ -2,7 +2,6 @@ package br.com.unidrive.controller;
 
 import br.com.unidrive.controller.dto.AgendamentoDto;
 import br.com.unidrive.controller.form.AgendamentoForm;
-import br.com.unidrive.model.Agendamento;
 import br.com.unidrive.model.Carro;
 import br.com.unidrive.useCase.AgendamentoUseCase;
 import br.com.unidrive.useCase.ConcessionariaUseCase;
@@ -43,7 +42,7 @@ public class AgendamentoController {
 
         var usuario = usuarioUseCase.obterUsuarioPorToken(token);
 
-        return agendamentoUseCase.obterAgendamentosPorUsuario(usuario);
+        return agendamentoUseCase.obterAgendamentosPorUsuarioDto(usuario);
 
     }
 
@@ -61,6 +60,17 @@ public class AgendamentoController {
 
         var concessionaria = concessionariaUseCase.obterConcessionaria(usuario);
 
-        return agendamentoUseCase.obterAgendamentosPorConcessionaria(concessionaria);
+        return agendamentoUseCase.obterAgendamentosPorConcessionariaDto(concessionaria);
     }
+
+    @DeleteMapping("/deletar/{agendamentoId}")
+    public ResponseEntity deletarAgendamento(@RequestHeader(value = "Authorization") String token, @PathVariable String agendamentoId){
+        var usuario = usuarioUseCase.obterUsuarioPorToken(token);
+
+        var concessionaria = concessionariaUseCase.obterConcessionaria(usuario);
+
+        return agendamentoUseCase.deletarAgendamento(usuario, concessionaria, agendamentoId);
+
+    }
+
 }

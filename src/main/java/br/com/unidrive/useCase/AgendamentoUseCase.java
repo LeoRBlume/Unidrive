@@ -37,22 +37,43 @@ public class AgendamentoUseCase {
 
     }
 
-    public List<AgendamentoDto> obterAgendamentosPorUsuario(Usuario usuario) {
+    public List<AgendamentoDto> obterAgendamentosPorUsuarioDto(Usuario usuario) {
 
-        return AgendamentoDto.transformarListaAgendamento(agendamentoRepository.findAllByUsuario(usuario));
+        var agendamentos = obterAgendamentosPorUsuario(usuario);
+
+        if (agendamentos.isEmpty()) {
+
+            return AgendamentoDto.transformarListaAgendamento(agendamentos);
+        } else
+            return null;
 
     }
 
+    public List<Agendamento> obterAgendamentosPorUsuario(Usuario usuario) {
 
-    public List<AgendamentoDto> obterAgendamentosPorConcessionaria(Concessionaria concessionaria) {
+        return agendamentoRepository.findAllByUsuario(usuario);
 
+    }
+
+    public List<AgendamentoDto> obterAgendamentosPorConcessionariaDto(Concessionaria concessionaria) {
+
+        var agendamentos = obterAgendamentosPorConcessionaria(concessionaria);
+
+        if (!agendamentos.isEmpty()) {
+            return AgendamentoDto.transformarListaAgendamento(agendamentos);
+        } else
+            return null;
+
+    }
+
+    public List<Agendamento> obterAgendamentosPorConcessionaria(Concessionaria concessionaria) {
         if (concessionaria != null) {
             var listaCarros = carroUseCase.obterCarrosPorConcessionaria(concessionaria);
 
-            var listaAgendamentos = new ArrayList<AgendamentoDto>();
+            var listaAgendamentos = new ArrayList<Agendamento>();
 
             for (Carro c : listaCarros) {
-                listaAgendamentos.addAll(AgendamentoDto.transformarListaAgendamento(agendamentoRepository.findAllByCarro(c)));
+                listaAgendamentos.addAll(agendamentoRepository.findAllByCarro(c));
             }
 
             return listaAgendamentos;
@@ -60,12 +81,30 @@ public class AgendamentoUseCase {
         } else {
             return null;
         }
-
     }
+
 
     public List<AgendamentoDto> obterAgendamentosPorCarro(Carro carro) {
 
         return AgendamentoDto.transformarListaAgendamento(agendamentoRepository.findAllByCarro(carro));
+
+    }
+
+    public ResponseEntity deletarAgendamento(Usuario usuario, Concessionaria concessionaria, String agendamentoId) {
+
+        var agendamentoOp = agendamentoRepository.findById(Long.parseLong(agendamentoId));
+
+        if (!agendamentoOp.isPresent()) {
+
+            return ResponseEntity.badRequest().build();
+        } else {
+            var agendamento = agendamentoOp.get();
+            if (agendamento.getUsuario().equals(usuario) || agendamento.getCarro().getConcessionaria().equals(concessionaria)) {
+                agendamentoRepository.delete(agendamento);
+                return ResponseEntity.ok().build();
+            } else
+                return ResponseEntity.badRequest().build();
+        }
 
     }
 }
