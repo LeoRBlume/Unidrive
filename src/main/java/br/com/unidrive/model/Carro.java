@@ -30,6 +30,8 @@ public class Carro {
     @OneToOne
     private Concessionaria concessionaria;
 
+    private String valor;
+
     public static Carro cadastroCarroForm(CarroForm carroForm, String dt_criacao, Concessionaria concessionaria) {
 
         var carro = new Carro();
@@ -44,6 +46,7 @@ public class Carro {
         carro.dt_criacao = dt_criacao;
         carro.concessionaria = concessionaria;
         carro.ano = carroForm.ano;
+        carro.valor = carroForm.valor;
 
         return carro;
     }

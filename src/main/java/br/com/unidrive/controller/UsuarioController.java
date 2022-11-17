@@ -2,7 +2,6 @@ package br.com.unidrive.controller;
 
 
 import br.com.unidrive.controller.dto.UsuarioDto;
-import br.com.unidrive.controller.form.AtualizacaoUsuarioForm;
 import br.com.unidrive.controller.form.UsuarioForm;
 import br.com.unidrive.useCase.UsuarioUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +31,11 @@ public class UsuarioController {
 
     }
 
-    @PutMapping
+   /* @PutMapping
     public ResponseEntity<UsuarioDto> atualizarUsuario(@RequestHeader(value = "Authorization") String token, @RequestBody @Valid AtualizacaoUsuarioForm form) {
 
         return useCase.atualizarCadastro(token, form);
 
-    }
+    }*/
 
 }

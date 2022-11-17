@@ -19,5 +19,7 @@ public class CarroForm {
     @NotNull
     public String placa;
     public String ano;
+
+    public String valor;
 }
 
