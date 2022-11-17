@@ -106,12 +106,10 @@ public class ConcessionariaUseCase {
             var agendamentos = agendamentoUseCase.obterAgendamentosPorConcessionaria(concessionaria);
 
             for (Agendamento a : agendamentos) {
-                agendamentoUseCase.deletarAgendamento(usuario, concessionaria, a.getId().toString());
+                agendamentoUseCase.deletarAgendamento(null, concessionaria, a.getId().toString());
             }
 
-            usuario.setConcessionaria(null);
-
-            usuarioRepository.save(usuario);
+            usuarioRepository.delete(usuario);
 
             concessionariaRepository.delete(concessionaria);
 

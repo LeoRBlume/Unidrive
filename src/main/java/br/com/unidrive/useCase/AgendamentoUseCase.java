@@ -41,7 +41,9 @@ public class AgendamentoUseCase {
 
         var agendamentos = obterAgendamentosPorUsuario(usuario);
 
-        if (agendamentos.isEmpty()) {
+        for (Agendamento a : agendamentos) System.out.println(a);
+
+        if (!agendamentos.isEmpty()) {
 
             return AgendamentoDto.transformarListaAgendamento(agendamentos);
         } else

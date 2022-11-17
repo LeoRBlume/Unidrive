@@ -18,8 +18,6 @@ public class CadastrarConcessionariaForm {
 
     private String telefone;
 
-    private String dt_criacao;
-
     private EnderecoForm enderecoForm;
 
 }
