@@ -2,10 +2,12 @@ package br.com.unidrive.useCase;
 
 import br.com.unidrive.controller.form.AtualizacaoConcessionariaForm;
 import br.com.unidrive.controller.form.CadastrarConcessionariaForm;
+import br.com.unidrive.model.Agendamento;
 import br.com.unidrive.model.Carro;
 import br.com.unidrive.model.Concessionaria;
 import br.com.unidrive.model.Usuario;
 import br.com.unidrive.repository.ConcessionariaRepository;
+import br.com.unidrive.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -26,6 +28,12 @@ public class ConcessionariaUseCase {
     @Autowired
     CarroUseCase carroUseCase;
 
+    @Autowired
+    AgendamentoUseCase agendamentoUseCase;
+
+    @Autowired
+    UsuarioRepository usuarioRepository;
+
 
     public Concessionaria cadastrarConcessionaria(CadastrarConcessionariaForm cadastrarConcessionariaForm) {
 
@@ -41,7 +49,7 @@ public class ConcessionariaUseCase {
                 cadastrarConcessionariaForm,
                 time,
                 endereco
-                );
+        );
 
         concessionariaRepository.save(concessionaria);
 
@@ -85,5 +93,30 @@ public class ConcessionariaUseCase {
 
         }
         return new ArrayList<>();
+    }
+
+    public ResponseEntity deletarConcessionaria(Usuario usuario) {
+
+        if (usuario.getConcessionaria() == null) {
+            return ResponseEntity.badRequest().build();
+        } else {
+
+            var concessionaria = usuario.getConcessionaria();
+
+            var agendamentos = agendamentoUseCase.obterAgendamentosPorConcessionaria(concessionaria);
+
+            for (Agendamento a : agendamentos) {
+                agendamentoUseCase.deletarAgendamento(usuario, concessionaria, a.getId().toString());
+            }
+
+            usuario.setConcessionaria(null);
+
+            usuarioRepository.save(usuario);
+
+            concessionariaRepository.delete(concessionaria);
+
+            return ResponseEntity.ok().build();
+        }
+
     }
 }

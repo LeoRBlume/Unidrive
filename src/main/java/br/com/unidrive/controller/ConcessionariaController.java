@@ -61,4 +61,13 @@ public class ConcessionariaController {
 
     }
 
+    @DeleteMapping("/deletar")
+    public ResponseEntity deletarConcessionaria(@RequestHeader(value = "Authorization") String token){
+
+        var usuario = usuarioUseCase.obterUsuarioPorToken(token);
+
+        return concessionariaUseCase.deletarConcessionaria(usuario);
+
+    }
+
 }

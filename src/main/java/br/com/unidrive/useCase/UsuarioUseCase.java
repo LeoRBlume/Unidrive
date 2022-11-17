@@ -6,6 +6,7 @@ import br.com.unidrive.controller.dto.ResponseDto;
 import br.com.unidrive.controller.dto.UsuarioDto;
 import br.com.unidrive.controller.form.AtualizacaoUsuarioForm;
 import br.com.unidrive.controller.form.UsuarioForm;
+import br.com.unidrive.model.Agendamento;
 import br.com.unidrive.model.Concessionaria;
 import br.com.unidrive.model.Usuario;
 import br.com.unidrive.repository.UsuarioRepository;
@@ -35,6 +36,9 @@ public class UsuarioUseCase {
 
     @Autowired
     EnderecoUseCase enderecoUseCase;
+
+    @Autowired
+    AgendamentoUseCase agendamentoUseCase;
 
     public ResponseEntity<String> cadastrarUsuario(UsuarioForm usuarioForm) {
 
@@ -148,5 +152,25 @@ public class UsuarioUseCase {
             e.printStackTrace();
             return new ResponseDto(HttpStatus.BAD_REQUEST, e.getMessage());
         }
+    }
+
+    public ResponseEntity deletarUsuario(Usuario usuario) {
+
+        if (usuario.getConcessionaria() != null) {
+            return ResponseEntity.badRequest().build();
+        } else {
+
+            var agendamentos = agendamentoUseCase.obterAgendamentosPorUsuario(usuario);
+
+            for (Agendamento a : agendamentos) {
+                agendamentoUseCase.deletarAgendamento(usuario, null, a.getId().toString());
+            }
+
+        }
+
+        usuarioRepository.delete(usuario);
+
+        return ResponseEntity.ok().build();
+
     }
 }

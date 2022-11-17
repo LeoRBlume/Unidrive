@@ -38,4 +38,15 @@ public class UsuarioController {
 
     }*/
 
+    @DeleteMapping("/deletar")
+    public ResponseEntity deletarUsuario(@RequestHeader(value = "Authorization") String token){
+
+        var usuario = useCase.obterUsuarioPorToken(token);
+
+        return useCase.deletarUsuario(usuario);
+
+
+
+
+    }
 }
