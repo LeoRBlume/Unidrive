@@ -26,6 +26,12 @@ public class AgendamentoUseCase {
     public ResponseEntity cadastrarAgendamento(Usuario usuario, AgendamentoForm agendamentoForm) {
 
         try {
+           var colAgendamento = agendamentoRepository.obterAgendamentoHorario(agendamentoForm.carro.getId(), agendamentoForm.dt_agendamento,
+                    agendamentoForm.hr_inicial, agendamentoForm.hr_final);
+
+           if (!colAgendamento.isEmpty()){
+               return ResponseEntity.badRequest().build();
+           }
             agendamentoRepository.save(new Agendamento(usuario, agendamentoForm));
 
             return ResponseEntity.ok().build();

@@ -2,6 +2,7 @@ package br.com.unidrive.controller;
 
 import br.com.unidrive.controller.dto.AgendamentoDto;
 import br.com.unidrive.controller.form.AgendamentoForm;
+import br.com.unidrive.model.Agendamento;
 import br.com.unidrive.model.Carro;
 import br.com.unidrive.useCase.AgendamentoUseCase;
 import br.com.unidrive.useCase.ConcessionariaUseCase;
@@ -38,11 +39,11 @@ public class AgendamentoController {
 
     @JsonSerialize
     @GetMapping("/usuario")
-    public List<AgendamentoDto> obterAgendamentosPorUsuario(@RequestHeader(value = "Authorization") String token) {
+    public List<Agendamento> obterAgendamentosPorUsuario(@RequestHeader(value = "Authorization") String token) {
 
         var usuario = usuarioUseCase.obterUsuarioPorToken(token);
 
-        return agendamentoUseCase.obterAgendamentosPorUsuarioDto(usuario);
+        return agendamentoUseCase.obterAgendamentosPorUsuario(usuario);
 
     }
 
