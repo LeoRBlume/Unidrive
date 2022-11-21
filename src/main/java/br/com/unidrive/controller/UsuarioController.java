@@ -31,7 +31,7 @@ public class UsuarioController {
 
     }
 
-   /* @PutMapping
+   /*@PutMapping
     public ResponseEntity<UsuarioDto> atualizarUsuario(@RequestHeader(value = "Authorization") String token, @RequestBody @Valid AtualizacaoUsuarioForm form) {
 
         return useCase.atualizarCadastro(token, form);

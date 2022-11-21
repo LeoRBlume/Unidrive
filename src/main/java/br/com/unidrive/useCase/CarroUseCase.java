@@ -1,5 +1,6 @@
 package br.com.unidrive.useCase;
 
+import br.com.unidrive.controller.form.AtualizacaoCarroForm;
 import br.com.unidrive.controller.form.CarroForm;
 import br.com.unidrive.model.Carro;
 import br.com.unidrive.model.Concessionaria;
@@ -80,6 +81,42 @@ public class CarroUseCase {
     public List<Carro> obterCarrosPorModelo(String modelo) {
 
         return carroRepository.findAllByModelo(modelo.toUpperCase());
+
+    }
+
+    public ResponseEntity atualizarCarro(Concessionaria concessionaria, AtualizacaoCarroForm carroForm, String carroId) {
+
+
+        var carroOp = carroRepository.findById(Long.valueOf(carroId));
+
+        if (!carroOp.isPresent()){
+            return ResponseEntity.badRequest().build();
+        }
+        else {
+            var carro = carroOp.get();
+            if(carro.getConcessionaria().equals(concessionaria)){
+
+                if (!carroForm.quilometragem.isBlank()){
+                    carro.setQuilometragem(carroForm.quilometragem);
+                }
+                if (!carroForm.cor.isBlank()){
+                    carro.setCor(carroForm.cor);
+                }
+                if (!carroForm.placa.isBlank()){
+                    carro.setPlaca(carroForm.placa);
+                }
+                if (!carroForm.valor.isBlank()){
+                    carro.setValor(carroForm.valor);
+                }
+
+                carroRepository.save(carro);
+
+                return ResponseEntity.ok(carro);
+            }
+            else {
+                return ResponseEntity.badRequest().build();
+            }
+        }
 
     }
 }

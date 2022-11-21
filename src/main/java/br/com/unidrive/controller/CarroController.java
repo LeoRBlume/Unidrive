@@ -1,5 +1,6 @@
 package br.com.unidrive.controller;
 
+import br.com.unidrive.controller.form.AtualizacaoCarroForm;
 import br.com.unidrive.controller.form.CarroForm;
 import br.com.unidrive.model.Carro;
 import br.com.unidrive.useCase.CarroUseCase;
@@ -47,6 +48,13 @@ public class CarroController {
     @GetMapping("/{modelo}")
     public List<Carro> obterCarrosPorModelo(@PathVariable String modelo) {
         return carroUseCase.obterCarrosPorModelo(modelo);
+    }
+
+    @PutMapping("/{carroId}")
+    public ResponseEntity atualizarCarro(@RequestBody AtualizacaoCarroForm carroForm, @RequestHeader(value = "Authorization") String token, @PathVariable String carroId){
+
+        var usuario = usuarioUseCase.obterUsuarioPorToken(token);
+        return carroUseCase.atualizarCarro(usuario.getConcessionaria(), carroForm, carroId);
     }
 
 }
