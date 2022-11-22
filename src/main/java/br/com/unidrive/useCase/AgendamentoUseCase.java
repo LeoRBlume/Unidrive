@@ -26,16 +26,14 @@ public class AgendamentoUseCase {
     public ResponseEntity cadastrarAgendamento(Usuario usuario, AgendamentoForm agendamentoForm) {
 
         try {
-
             var agendamento = new Agendamento(usuario, agendamentoForm);
+
             agendamentoRepository.save(agendamento);
 
-            return ResponseEntity.ok(agendamento).build();
-
-               } catch (Exception e) {
-
-                   return ResponseEntity.badRequest().build();
-               }
+            return ResponseEntity.ok(agendamento);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
 
     }
 
