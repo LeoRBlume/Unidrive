@@ -86,9 +86,9 @@ public class AgendamentoUseCase {
     }
 
 
-    public List<AgendamentoDto> obterAgendamentosPorCarro(Carro carro) {
+    public List<Agendamento> obterAgendamentosPorCarro(Carro carro) {
 
-        return AgendamentoDto.transformarListaAgendamento(agendamentoRepository.findAllByCarro(carro));
+        return agendamentoRepository.findAllByCarro(carro);
 
     }
 

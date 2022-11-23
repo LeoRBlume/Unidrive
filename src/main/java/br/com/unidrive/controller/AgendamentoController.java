@@ -48,7 +48,7 @@ public class AgendamentoController {
     }
 
     @PutMapping("/carro")
-    public List<AgendamentoDto> obterAgendamentosPorCarro(@RequestBody Carro carro) {
+    public List<Agendamento> obterAgendamentosPorCarro(@RequestBody Carro carro) {
 
         return agendamentoUseCase.obterAgendamentosPorCarro(carro);
 
@@ -61,7 +61,7 @@ public class AgendamentoController {
 
         var concessionaria = concessionariaUseCase.obterConcessionaria(usuario);
 
-        return agendamentoUseCase.obterAgendamentosPorConcessionariaDto(concessionaria);
+        return agendamentoUseCase.obterAgendamentosPorConcessionaria(concessionaria);
     }
 
     @DeleteMapping("/deletar/{agendamentoId}")
