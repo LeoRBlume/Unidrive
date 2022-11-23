@@ -55,7 +55,7 @@ public class AgendamentoController {
     }
 
     @GetMapping("/concessionaria")
-    public List<AgendamentoDto> obterAgendamentoPorConcessionaria(@RequestHeader(value = "Authorization") String token) {
+    public List<Agendamento> obterAgendamentoPorConcessionaria(@RequestHeader(value = "Authorization") String token) {
 
         var usuario = usuarioUseCase.obterUsuarioPorToken(token);
 
