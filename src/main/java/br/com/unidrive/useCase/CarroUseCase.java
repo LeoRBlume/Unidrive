@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -21,9 +20,6 @@ public class CarroUseCase {
 
     @Autowired
     CarroRepository carroRepository;
-
-    @Autowired
-    ConcessionariaUseCase concessionariaUseCase;
 
     public ResponseEntity cadastrarCarros(List<CarroForm> carroFormList, Usuario usuario) {
 
@@ -49,26 +45,24 @@ public class CarroUseCase {
 
     }
 
-    public List<Carro> deletarCarros(List<Carro> carros, Usuario usuario) {
+    public ResponseEntity deletarCarros(String carroId, Concessionaria concessionaria) {
 
-        var concessionaria = concessionariaUseCase.obterConcessionaria(usuario);
+        var carroOp = carroRepository.findById(Long.parseLong(carroId));
 
-        var carrosExcluidos = new ArrayList<Carro>();
-        if (concessionaria != null) {
+        if (carroOp.isPresent()) {
 
-            var carrosConcessionaria = obterCarrosPorConcessionaria(concessionaria);
+            var carro = carroOp.get();
 
-            for (Carro c : carros) {
-                System.out.println(c);
-                for (Carro c1 : carrosConcessionaria) System.out.println(c1);
-                if (carrosConcessionaria.contains(c)) {
-                    carroRepository.delete(c);
-                    carrosExcluidos.add(c);
-                }
+            if (carro.getConcessionaria().equals(concessionaria)) {
+                var response = ResponseEntity.ok(carro);
+                carroRepository.delete(carro);
+                return response;
+            } else {
+                return ResponseEntity.badRequest().build();
             }
-            return carrosExcluidos;
+        } else {
+            return ResponseEntity.badRequest().build();
         }
-        return null;
 
     }
 
@@ -78,42 +72,34 @@ public class CarroUseCase {
 
     }
 
-    public List<Carro> obterCarrosPorModelo(String modelo) {
-
-        return carroRepository.findAllByModelo(modelo.toUpperCase());
-
-    }
-
     public ResponseEntity atualizarCarro(Concessionaria concessionaria, AtualizacaoCarroForm carroForm, String carroId) {
 
 
         var carroOp = carroRepository.findById(Long.valueOf(carroId));
 
-        if (!carroOp.isPresent()){
+        if (!carroOp.isPresent()) {
             return ResponseEntity.badRequest().build();
-        }
-        else {
+        } else {
             var carro = carroOp.get();
-            if(carro.getConcessionaria().equals(concessionaria)){
+            if (carro.getConcessionaria().equals(concessionaria)) {
 
-                if (!carroForm.quilometragem.isBlank()){
+                if (!carroForm.quilometragem.isBlank()) {
                     carro.setQuilometragem(carroForm.quilometragem);
                 }
-                if (!carroForm.cor.isBlank()){
+                if (!carroForm.cor.isBlank()) {
                     carro.setCor(carroForm.cor);
                 }
-                if (!carroForm.placa.isBlank()){
+                if (!carroForm.placa.isBlank()) {
                     carro.setPlaca(carroForm.placa);
                 }
-                if (!carroForm.valor.isBlank()){
+                if (!carroForm.valor.isBlank()) {
                     carro.setValor(carroForm.valor);
                 }
 
                 carroRepository.save(carro);
 
                 return ResponseEntity.ok(carro);
-            }
-            else {
+            } else {
                 return ResponseEntity.badRequest().build();
             }
         }
@@ -124,7 +110,7 @@ public class CarroUseCase {
 
         var carro = carroRepository.findById(Long.parseLong(carroId));
 
-        if(carro.isPresent()) return ResponseEntity.ok(carro);
+        if (carro.isPresent()) return ResponseEntity.ok(carro);
 
         else return ResponseEntity.badRequest().build();
 

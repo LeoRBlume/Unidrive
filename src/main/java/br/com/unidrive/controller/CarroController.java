@@ -4,6 +4,7 @@ import br.com.unidrive.controller.form.AtualizacaoCarroForm;
 import br.com.unidrive.controller.form.CarroForm;
 import br.com.unidrive.model.Carro;
 import br.com.unidrive.useCase.CarroUseCase;
+import br.com.unidrive.useCase.ConcessionariaUseCase;
 import br.com.unidrive.useCase.UsuarioUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,9 @@ public class CarroController {
     @Autowired
     UsuarioUseCase usuarioUseCase;
 
+    @Autowired
+    ConcessionariaUseCase concessionariaUseCase;
+
     @PostMapping
     public ResponseEntity cadastrarCarro(@RequestBody @Valid List<CarroForm> carroForm, @RequestHeader(value = "Authorization") String token) {
 
@@ -29,14 +33,15 @@ public class CarroController {
 
     }
 
-    @DeleteMapping
-    public ResponseEntity deletarCarro(@RequestBody List<Carro> carros, @RequestHeader(value = "Authorization") String token) {
+    @DeleteMapping("/{carroId}")
+    public ResponseEntity deletarCarro(@RequestHeader(value = "Authorization") String token, @PathVariable String carroId) {
 
         var usuario = usuarioUseCase.obterUsuarioPorToken(token);
-        var response = carroUseCase.deletarCarros(carros, usuario);
 
-        if (response != null) return ResponseEntity.ok(response);
-        else return ResponseEntity.badRequest().build();
+        var concessionaria = concessionariaUseCase.obterConcessionaria(usuario);
+
+
+        return carroUseCase.deletarCarros(carroId, concessionaria);
 
     }
 
@@ -50,11 +55,6 @@ public class CarroController {
     @GetMapping
     public List<Carro> obterTodosCarros() {
         return carroUseCase.obterTodosCarros();
-    }
-
-    @GetMapping("/{modelo}")
-    public List<Carro> obterCarrosPorModelo(@PathVariable String modelo) {
-        return carroUseCase.obterCarrosPorModelo(modelo);
     }
 
     @PutMapping("/{carroId}")
