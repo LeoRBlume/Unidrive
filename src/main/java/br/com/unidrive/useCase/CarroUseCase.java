@@ -119,4 +119,14 @@ public class CarroUseCase {
         }
 
     }
+
+    public ResponseEntity obterCarroPorId(String carroId) {
+
+        var carro = carroRepository.findById(Long.parseLong(carroId));
+
+        if(carro.isPresent()) return ResponseEntity.ok(carro);
+
+        else return ResponseEntity.badRequest().build();
+
+    }
 }

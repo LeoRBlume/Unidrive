@@ -1,6 +1,5 @@
 package br.com.unidrive.useCase;
 
-import br.com.unidrive.controller.dto.AgendamentoDto;
 import br.com.unidrive.controller.form.AgendamentoForm;
 import br.com.unidrive.model.Agendamento;
 import br.com.unidrive.model.Carro;
@@ -37,34 +36,9 @@ public class AgendamentoUseCase {
 
     }
 
-    public List<AgendamentoDto> obterAgendamentosPorUsuarioDto(Usuario usuario) {
-
-        var agendamentos = obterAgendamentosPorUsuario(usuario);
-
-        for (Agendamento a : agendamentos) System.out.println(a);
-
-        if (!agendamentos.isEmpty()) {
-
-            return AgendamentoDto.transformarListaAgendamento(agendamentos);
-        } else
-            return null;
-
-    }
-
     public List<Agendamento> obterAgendamentosPorUsuario(Usuario usuario) {
 
         return agendamentoRepository.findAllByUsuario(usuario);
-
-    }
-
-    public List<AgendamentoDto> obterAgendamentosPorConcessionariaDto(Concessionaria concessionaria) {
-
-        var agendamentos = obterAgendamentosPorConcessionaria(concessionaria);
-
-        if (!agendamentos.isEmpty()) {
-            return AgendamentoDto.transformarListaAgendamento(agendamentos);
-        } else
-            return null;
 
     }
 
