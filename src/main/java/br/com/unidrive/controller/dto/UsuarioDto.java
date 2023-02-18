@@ -1,9 +1,9 @@
 package br.com.unidrive.controller.dto;
 
 
-import br.com.unidrive.model.Concessionaria;
-import br.com.unidrive.model.Endereco;
-import br.com.unidrive.model.Usuario;
+import br.com.unidrive.domain.Concessionaria;
+import br.com.unidrive.domain.Endereco;
+import br.com.unidrive.domain.Usuario;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

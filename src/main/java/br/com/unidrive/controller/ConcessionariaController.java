@@ -2,9 +2,9 @@ package br.com.unidrive.controller;
 
 import br.com.unidrive.controller.form.AtualizacaoConcessionariaForm;
 import br.com.unidrive.controller.form.CadastrarConcessionariaForm;
-import br.com.unidrive.model.Carro;
-import br.com.unidrive.useCase.ConcessionariaUseCase;
-import br.com.unidrive.useCase.UsuarioUseCase;
+import br.com.unidrive.domain.Carro;
+import br.com.unidrive.application.useCase.ConcessionariaUseCase;
+import br.com.unidrive.application.useCase.UsuarioUseCaseImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class ConcessionariaController {
     ConcessionariaUseCase concessionariaUseCase;
 
     @Autowired
-    UsuarioUseCase usuarioUseCase;
+    UsuarioUseCaseImpl usuarioUseCase;
 
     @GetMapping
     public ResponseEntity obterConcessionaria(@RequestHeader(value = "Authorization") String token) {

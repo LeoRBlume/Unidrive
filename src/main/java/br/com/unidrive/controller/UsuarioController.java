@@ -1,9 +1,8 @@
 package br.com.unidrive.controller;
 
 
-import br.com.unidrive.controller.dto.UsuarioDto;
 import br.com.unidrive.controller.form.UsuarioForm;
-import br.com.unidrive.useCase.UsuarioUseCase;
+import br.com.unidrive.domain.contract.useCase.UsuarioUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,7 +17,7 @@ public class UsuarioController {
     UsuarioUseCase useCase;
 
     @GetMapping
-    public ResponseEntity<UsuarioDto> obterUsuario(@RequestHeader(value = "Authorization") String token) {
+    public ResponseEntity<?> obterUsuario(@RequestHeader(value = "Authorization") String token) {
 
         return useCase.obterUsuario(token);
 
@@ -31,22 +30,10 @@ public class UsuarioController {
 
     }
 
-   /*@PutMapping
-    public ResponseEntity<UsuarioDto> atualizarUsuario(@RequestHeader(value = "Authorization") String token, @RequestBody @Valid AtualizacaoUsuarioForm form) {
-
-        return useCase.atualizarCadastro(token, form);
-
-    }*/
-
     @DeleteMapping("/deletar")
-    public ResponseEntity deletarUsuario(@RequestHeader(value = "Authorization") String token){
+    public ResponseEntity deletarUsuario(@RequestHeader(value = "Authorization") String token) {
 
-        var usuario = useCase.obterUsuarioPorToken(token);
-
-        return useCase.deletarUsuario(usuario);
-
-
-
+        return useCase.deletarUsuario(token);
 
     }
 }

@@ -1,7 +1,7 @@
 package br.com.unidrive.controller.dto;
 
-import br.com.unidrive.model.Agendamento;
-import br.com.unidrive.model.Carro;
+import br.com.unidrive.domain.model.Agendamento;
+import br.com.unidrive.domain.Carro;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 

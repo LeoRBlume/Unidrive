@@ -1,12 +1,11 @@
 package br.com.unidrive.controller;
 
-import br.com.unidrive.controller.dto.AgendamentoDto;
 import br.com.unidrive.controller.form.AgendamentoForm;
-import br.com.unidrive.model.Agendamento;
-import br.com.unidrive.model.Carro;
-import br.com.unidrive.useCase.AgendamentoUseCase;
-import br.com.unidrive.useCase.ConcessionariaUseCase;
-import br.com.unidrive.useCase.UsuarioUseCase;
+import br.com.unidrive.domain.model.Agendamento;
+import br.com.unidrive.domain.Carro;
+import br.com.unidrive.application.useCase.AgendamentoUseCase;
+import br.com.unidrive.application.useCase.ConcessionariaUseCase;
+import br.com.unidrive.application.useCase.UsuarioUseCaseImpl;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +22,7 @@ public class AgendamentoController {
     AgendamentoUseCase agendamentoUseCase;
 
     @Autowired
-    UsuarioUseCase usuarioUseCase;
+    UsuarioUseCaseImpl usuarioUseCase;
 
     @Autowired
     ConcessionariaUseCase concessionariaUseCase;

@@ -1,6 +1,6 @@
 package br.com.unidrive.controller;
 
-import br.com.unidrive.config.security.TokenService;
+import br.com.unidrive.infrastructure.config.security.TokenService;
 import br.com.unidrive.controller.dto.TokenDto;
 import br.com.unidrive.controller.form.LoginForm;
 import org.springframework.beans.factory.annotation.Autowired;

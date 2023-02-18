@@ -1,11 +1,11 @@
 package br.com.unidrive.controller;
 
-import br.com.unidrive.controller.form.AtualizacaoCarroForm;
 import br.com.unidrive.controller.form.CarroForm;
-import br.com.unidrive.model.Carro;
-import br.com.unidrive.useCase.CarroUseCase;
-import br.com.unidrive.useCase.ConcessionariaUseCase;
-import br.com.unidrive.useCase.UsuarioUseCase;
+import br.com.unidrive.controller.form.AtualizacaoCarroForm;
+import br.com.unidrive.domain.Carro;
+import br.com.unidrive.application.useCase.CarroUseCase;
+import br.com.unidrive.application.useCase.ConcessionariaUseCase;
+import br.com.unidrive.application.useCase.UsuarioUseCaseImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ public class CarroController {
     CarroUseCase carroUseCase;
 
     @Autowired
-    UsuarioUseCase usuarioUseCase;
+    UsuarioUseCaseImpl usuarioUseCase;
 
     @Autowired
     ConcessionariaUseCase concessionariaUseCase;
