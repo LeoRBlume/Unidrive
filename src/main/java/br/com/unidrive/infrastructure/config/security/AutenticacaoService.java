@@ -1,6 +1,6 @@
 package br.com.unidrive.infrastructure.config.security;
 
-import br.com.unidrive.domain.Usuario;
+import br.com.unidrive.domain.model.Usuario;
 import br.com.unidrive.infrastructure.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

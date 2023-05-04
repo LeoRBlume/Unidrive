@@ -1,11 +1,11 @@
 package br.com.unidrive.application.useCase;
 
-import br.com.unidrive.controller.form.AtualizacaoConcessionariaForm;
-import br.com.unidrive.controller.form.CadastrarConcessionariaForm;
+import br.com.unidrive.application.controller.form.AtualizacaoConcessionariaForm;
+import br.com.unidrive.application.controller.form.CadastrarConcessionariaForm;
 import br.com.unidrive.domain.model.Agendamento;
-import br.com.unidrive.domain.Carro;
-import br.com.unidrive.domain.Concessionaria;
-import br.com.unidrive.domain.Usuario;
+import br.com.unidrive.domain.model.Carro;
+import br.com.unidrive.domain.model.Concessionaria;
+import br.com.unidrive.domain.model.Usuario;
 import br.com.unidrive.infrastructure.repository.ConcessionariaRepository;
 import br.com.unidrive.infrastructure.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class ConcessionariaUseCase {
     CarroUseCase carroUseCase;
 
     @Autowired
-    AgendamentoUseCase agendamentoUseCase;
+    AgendamentoUseCaseImpl agendamentoUseCaseImpl;
 
     @Autowired
     UsuarioRepository usuarioRepository;
@@ -103,10 +103,10 @@ public class ConcessionariaUseCase {
 
             var concessionaria = usuario.getConcessionaria();
 
-            var agendamentos = agendamentoUseCase.obterAgendamentosPorConcessionaria(concessionaria);
+            var agendamentos = agendamentoUseCaseImpl.obterAgendamentosPorConcessionaria(concessionaria);
 
             for (Agendamento a : agendamentos) {
-                agendamentoUseCase.deletarAgendamento(null, concessionaria, a.getId().toString());
+                agendamentoUseCaseImpl.deletarAgendamento(null, concessionaria, a.getId().toString());
             }
 
             usuarioRepository.delete(usuario);

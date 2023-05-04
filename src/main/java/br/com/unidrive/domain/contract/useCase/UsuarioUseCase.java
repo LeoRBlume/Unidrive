@@ -1,6 +1,6 @@
 package br.com.unidrive.domain.contract.useCase;
 
-import br.com.unidrive.controller.form.UsuarioForm;
+import br.com.unidrive.application.controller.form.UsuarioForm;
 import org.springframework.http.ResponseEntity;
 
 public interface UsuarioUseCase {

@@ -1,8 +1,8 @@
 package br.com.unidrive.infrastructure.repository;
 
 import br.com.unidrive.domain.model.Agendamento;
-import br.com.unidrive.domain.Carro;
-import br.com.unidrive.domain.Usuario;
+import br.com.unidrive.domain.model.Carro;
+import br.com.unidrive.domain.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -1,6 +1,6 @@
-package br.com.unidrive.controller.form;
+package br.com.unidrive.application.controller.form;
 
-import br.com.unidrive.domain.Carro;
+import br.com.unidrive.domain.model.Carro;
 import lombok.Data;
 import lombok.ToString;
 

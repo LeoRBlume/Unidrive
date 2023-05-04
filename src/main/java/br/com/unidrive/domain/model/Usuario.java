@@ -1,8 +1,5 @@
-package br.com.unidrive.domain;
+package br.com.unidrive.domain.model;
 
-import br.com.unidrive.domain.Concessionaria;
-import br.com.unidrive.domain.Endereco;
-import br.com.unidrive.domain.Perfil;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

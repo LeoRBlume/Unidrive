@@ -1,8 +1,6 @@
 package br.com.unidrive.domain.model;
 
-import br.com.unidrive.controller.form.AgendamentoForm;
-import br.com.unidrive.domain.Carro;
-import br.com.unidrive.domain.Usuario;
+import br.com.unidrive.application.controller.form.AgendamentoForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

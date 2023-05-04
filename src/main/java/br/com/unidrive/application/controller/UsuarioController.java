@@ -1,7 +1,7 @@
-package br.com.unidrive.controller;
+package br.com.unidrive.application.controller;
 
 
-import br.com.unidrive.controller.form.UsuarioForm;
+import br.com.unidrive.application.controller.form.UsuarioForm;
 import br.com.unidrive.domain.contract.useCase.UsuarioUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

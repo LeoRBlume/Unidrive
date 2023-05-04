@@ -1,6 +1,6 @@
-package br.com.unidrive.domain;
+package br.com.unidrive.domain.model;
 
-import br.com.unidrive.controller.form.EnderecoForm;
+import br.com.unidrive.application.controller.form.EnderecoForm;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,7 +1,7 @@
 package br.com.unidrive.infrastructure.repository;
 
-import br.com.unidrive.domain.Carro;
-import br.com.unidrive.domain.Concessionaria;
+import br.com.unidrive.domain.model.Carro;
+import br.com.unidrive.domain.model.Concessionaria;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package br.com.unidrive.infrastructure.config.security;
 
-import br.com.unidrive.domain.Usuario;
+import br.com.unidrive.domain.model.Usuario;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;

@@ -1,4 +1,4 @@
-package br.com.unidrive.controller.form;
+package br.com.unidrive.application.controller.form;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;

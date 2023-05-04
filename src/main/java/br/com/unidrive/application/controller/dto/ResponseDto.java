@@ -1,4 +1,4 @@
-package br.com.unidrive.controller.dto;
+package br.com.unidrive.application.controller.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

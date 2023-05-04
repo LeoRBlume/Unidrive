@@ -1,11 +1,11 @@
 package br.com.unidrive.application.useCase;
 
 
-import br.com.unidrive.controller.dto.ResponseDto;
-import br.com.unidrive.controller.dto.UsuarioDto;
-import br.com.unidrive.controller.form.UsuarioForm;
-import br.com.unidrive.domain.Concessionaria;
-import br.com.unidrive.domain.Usuario;
+import br.com.unidrive.application.controller.dto.ResponseDto;
+import br.com.unidrive.application.controller.dto.UsuarioDto;
+import br.com.unidrive.application.controller.form.UsuarioForm;
+import br.com.unidrive.domain.model.Concessionaria;
+import br.com.unidrive.domain.model.Usuario;
 import br.com.unidrive.domain.contract.useCase.UsuarioUseCase;
 import br.com.unidrive.domain.model.Agendamento;
 import br.com.unidrive.infrastructure.config.security.TokenService;
@@ -38,7 +38,7 @@ public class UsuarioUseCaseImpl implements UsuarioUseCase {
     EnderecoUseCase enderecoUseCase;
 
     @Autowired
-    AgendamentoUseCase agendamentoUseCase;
+    AgendamentoUseCaseImpl agendamentoUseCaseImpl;
 
 
     public ResponseEntity<?> obterUsuario(String token) {
@@ -74,10 +74,10 @@ public class UsuarioUseCaseImpl implements UsuarioUseCase {
             return ResponseEntity.badRequest().build();
         } else {
 
-            var agendamentos = agendamentoUseCase.obterAgendamentosPorUsuario(usuario);
+            var agendamentos = agendamentoUseCaseImpl.obterAgendamentosPorUsuario(usuario);
 
             for (Agendamento a : agendamentos) {
-                agendamentoUseCase.deletarAgendamento(usuario, null, a.getId().toString());
+                agendamentoUseCaseImpl.deletarAgendamento(usuario, null, a.getId().toString());
             }
 
         }

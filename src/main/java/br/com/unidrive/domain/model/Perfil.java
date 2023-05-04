@@ -1,4 +1,4 @@
-package br.com.unidrive.domain;
+package br.com.unidrive.domain.model;
 
 import org.springframework.security.core.GrantedAuthority;
 

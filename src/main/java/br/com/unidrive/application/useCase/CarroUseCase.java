@@ -1,10 +1,10 @@
 package br.com.unidrive.application.useCase;
 
-import br.com.unidrive.controller.form.AtualizacaoCarroForm;
-import br.com.unidrive.controller.form.CarroForm;
-import br.com.unidrive.domain.Carro;
-import br.com.unidrive.domain.Concessionaria;
-import br.com.unidrive.domain.Usuario;
+import br.com.unidrive.application.controller.form.AtualizacaoCarroForm;
+import br.com.unidrive.application.controller.form.CarroForm;
+import br.com.unidrive.domain.model.Carro;
+import br.com.unidrive.domain.model.Concessionaria;
+import br.com.unidrive.domain.model.Usuario;
 import br.com.unidrive.infrastructure.repository.CarroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

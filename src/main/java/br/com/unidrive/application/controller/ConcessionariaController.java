@@ -1,8 +1,8 @@
-package br.com.unidrive.controller;
+package br.com.unidrive.application.controller;
 
-import br.com.unidrive.controller.form.AtualizacaoConcessionariaForm;
-import br.com.unidrive.controller.form.CadastrarConcessionariaForm;
-import br.com.unidrive.domain.Carro;
+import br.com.unidrive.application.controller.form.AtualizacaoConcessionariaForm;
+import br.com.unidrive.application.controller.form.CadastrarConcessionariaForm;
+import br.com.unidrive.domain.model.Carro;
 import br.com.unidrive.application.useCase.ConcessionariaUseCase;
 import br.com.unidrive.application.useCase.UsuarioUseCaseImpl;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
-package br.com.unidrive.domain;
+package br.com.unidrive.domain.model;
 
-import br.com.unidrive.controller.form.CadastrarConcessionariaForm;
+import br.com.unidrive.application.controller.form.CadastrarConcessionariaForm;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;

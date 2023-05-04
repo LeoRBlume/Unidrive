@@ -1,8 +1,8 @@
-package br.com.unidrive.controller;
+package br.com.unidrive.application.controller;
 
-import br.com.unidrive.controller.form.CarroForm;
-import br.com.unidrive.controller.form.AtualizacaoCarroForm;
-import br.com.unidrive.domain.Carro;
+import br.com.unidrive.application.controller.form.AtualizacaoCarroForm;
+import br.com.unidrive.application.controller.form.CarroForm;
+import br.com.unidrive.domain.model.Carro;
 import br.com.unidrive.application.useCase.CarroUseCase;
 import br.com.unidrive.application.useCase.ConcessionariaUseCase;
 import br.com.unidrive.application.useCase.UsuarioUseCaseImpl;

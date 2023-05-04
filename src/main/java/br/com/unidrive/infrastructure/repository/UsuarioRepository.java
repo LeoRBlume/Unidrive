@@ -1,6 +1,6 @@
 package br.com.unidrive.infrastructure.repository;
 
-import br.com.unidrive.domain.Usuario;
+import br.com.unidrive.domain.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

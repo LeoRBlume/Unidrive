@@ -1,8 +1,8 @@
-package br.com.unidrive.controller;
+package br.com.unidrive.application.controller;
 
+import br.com.unidrive.application.controller.dto.TokenDto;
+import br.com.unidrive.application.controller.form.LoginForm;
 import br.com.unidrive.infrastructure.config.security.TokenService;
-import br.com.unidrive.controller.dto.TokenDto;
-import br.com.unidrive.controller.form.LoginForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

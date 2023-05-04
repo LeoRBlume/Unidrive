@@ -1,10 +1,11 @@
 package br.com.unidrive.application.useCase;
 
-import br.com.unidrive.controller.form.AgendamentoForm;
+import br.com.unidrive.application.controller.form.AgendamentoForm;
+import br.com.unidrive.domain.contract.useCase.AgendamentoUseCase;
 import br.com.unidrive.domain.model.Agendamento;
-import br.com.unidrive.domain.Carro;
-import br.com.unidrive.domain.Concessionaria;
-import br.com.unidrive.domain.Usuario;
+import br.com.unidrive.domain.model.Carro;
+import br.com.unidrive.domain.model.Concessionaria;
+import br.com.unidrive.domain.model.Usuario;
 import br.com.unidrive.infrastructure.repository.AgendamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,15 +15,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class AgendamentoUseCase {
+public class AgendamentoUseCaseImpl implements AgendamentoUseCase {
 
     @Autowired
     AgendamentoRepository agendamentoRepository;
 
     @Autowired
+    UsuarioUseCaseImpl usuarioUseCase;
+
+    @Autowired
+    ConcessionariaUseCase concessionariaUseCase;
+
+    @Autowired
     CarroUseCase carroUseCase;
 
-    public ResponseEntity cadastrarAgendamento(Usuario usuario, AgendamentoForm agendamentoForm) {
+    public ResponseEntity cadastrarAgendamento(String token, AgendamentoForm agendamentoForm) {
+
+        var usuario = usuarioUseCase.obterUsuarioPorToken(token);
 
         try {
             var agendamento = new Agendamento(usuario, agendamentoForm);
@@ -33,8 +42,15 @@ public class AgendamentoUseCase {
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    public List<Agendamento> obterAgendamentosPorUsuarioToken(String token) {
+
+        return obterAgendamentosPorUsuario(usuarioUseCase.obterUsuarioPorToken(token));
+
 
     }
+
 
     public List<Agendamento> obterAgendamentosPorUsuario(Usuario usuario) {
 
@@ -42,7 +58,16 @@ public class AgendamentoUseCase {
 
     }
 
+
+    public List<Agendamento> obterAgendamentosPorConcessionariaToken(String token) {
+
+        var usuario = usuarioUseCase.obterUsuarioPorToken(token);
+
+        return obterAgendamentosPorConcessionaria(concessionariaUseCase.obterConcessionaria(usuario));
+    }
     public List<Agendamento> obterAgendamentosPorConcessionaria(Concessionaria concessionaria) {
+
+
         if (concessionaria != null) {
             var listaCarros = carroUseCase.obterCarrosPorConcessionaria(concessionaria);
 
@@ -63,6 +88,15 @@ public class AgendamentoUseCase {
     public List<Agendamento> obterAgendamentosPorCarro(Carro carro) {
 
         return agendamentoRepository.findAllByCarro(carro);
+
+    }
+
+    public ResponseEntity deletarAgendamentoToken(String token, String agendamentoId) {
+
+        var usuario = usuarioUseCase.obterUsuarioPorToken(token);
+
+
+        return deletarAgendamento(usuario, concessionariaUseCase.obterConcessionaria(usuario), agendamentoId);
 
     }
 
