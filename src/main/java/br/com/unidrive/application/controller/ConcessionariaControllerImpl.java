@@ -2,6 +2,7 @@ package br.com.unidrive.application.controller;
 
 import br.com.unidrive.application.controller.form.AtualizacaoConcessionariaForm;
 import br.com.unidrive.application.controller.form.CadastrarConcessionariaForm;
+import br.com.unidrive.domain.contract.controller.ConcessionariaController;
 import br.com.unidrive.domain.model.Carro;
 import br.com.unidrive.application.useCase.ConcessionariaUseCase;
 import br.com.unidrive.application.useCase.UsuarioUseCaseImpl;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/concessionaria")
-public class ConcessionariaController {
+public class ConcessionariaControllerImpl implements ConcessionariaController {
     @Autowired
     ConcessionariaUseCase concessionariaUseCase;
 
