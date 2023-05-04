@@ -2,9 +2,9 @@ package br.com.unidrive.application.useCase;
 
 import br.com.unidrive.application.controller.form.AtualizacaoCarroForm;
 import br.com.unidrive.application.controller.form.CarroForm;
+import br.com.unidrive.domain.contract.useCase.CarroUseCase;
 import br.com.unidrive.domain.model.Carro;
 import br.com.unidrive.domain.model.Concessionaria;
-import br.com.unidrive.domain.model.Usuario;
 import br.com.unidrive.infrastructure.repository.CarroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
-public class CarroUseCase {
+public class CarroUseCaseImpl implements CarroUseCase {
 
     @Autowired
     CarroRepository carroRepository;
@@ -24,7 +24,7 @@ public class CarroUseCase {
     UsuarioUseCaseImpl usuarioUseCase;
 
     @Autowired
-    ConcessionariaUseCase concessionariaUseCase;
+    ConcessionariaUseCaseImpl concessionariaUseCaseImpl;
 
 
     public ResponseEntity cadastrarCarros(String token, List<CarroForm> carroFormList) {
@@ -57,7 +57,7 @@ public class CarroUseCase {
 
         var usuario = usuarioUseCase.obterUsuarioPorToken(token);
 
-        var concessionaria = concessionariaUseCase.obterConcessionaria(usuario);
+        var concessionaria = concessionariaUseCaseImpl.obterConcessionaria(usuario);
 
         var carroOp = carroRepository.findById(Long.parseLong(carroId));
 

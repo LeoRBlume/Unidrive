@@ -24,10 +24,10 @@ public class AgendamentoUseCaseImpl implements AgendamentoUseCase {
     UsuarioUseCaseImpl usuarioUseCase;
 
     @Autowired
-    ConcessionariaUseCase concessionariaUseCase;
+    ConcessionariaUseCaseImpl concessionariaUseCaseImpl;
 
     @Autowired
-    CarroUseCase carroUseCase;
+    CarroUseCaseImpl carroUseCaseImpl;
 
     public ResponseEntity cadastrarAgendamento(String token, AgendamentoForm agendamentoForm) {
 
@@ -63,13 +63,13 @@ public class AgendamentoUseCaseImpl implements AgendamentoUseCase {
 
         var usuario = usuarioUseCase.obterUsuarioPorToken(token);
 
-        return obterAgendamentosPorConcessionaria(concessionariaUseCase.obterConcessionaria(usuario));
+        return obterAgendamentosPorConcessionaria(concessionariaUseCaseImpl.obterConcessionaria(usuario));
     }
     public List<Agendamento> obterAgendamentosPorConcessionaria(Concessionaria concessionaria) {
 
 
         if (concessionaria != null) {
-            var listaCarros = carroUseCase.obterCarrosPorConcessionaria(concessionaria);
+            var listaCarros = carroUseCaseImpl.obterCarrosPorConcessionaria(concessionaria);
 
             var listaAgendamentos = new ArrayList<Agendamento>();
 
@@ -96,7 +96,7 @@ public class AgendamentoUseCaseImpl implements AgendamentoUseCase {
         var usuario = usuarioUseCase.obterUsuarioPorToken(token);
 
 
-        return deletarAgendamento(usuario, concessionariaUseCase.obterConcessionaria(usuario), agendamentoId);
+        return deletarAgendamento(usuario, concessionariaUseCaseImpl.obterConcessionaria(usuario), agendamentoId);
 
     }
 

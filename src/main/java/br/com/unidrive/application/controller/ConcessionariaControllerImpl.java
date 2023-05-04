@@ -4,7 +4,7 @@ import br.com.unidrive.application.controller.form.AtualizacaoConcessionariaForm
 import br.com.unidrive.application.controller.form.CadastrarConcessionariaForm;
 import br.com.unidrive.domain.contract.controller.ConcessionariaController;
 import br.com.unidrive.domain.model.Carro;
-import br.com.unidrive.application.useCase.ConcessionariaUseCase;
+import br.com.unidrive.application.useCase.ConcessionariaUseCaseImpl;
 import br.com.unidrive.application.useCase.UsuarioUseCaseImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/concessionaria")
 public class ConcessionariaControllerImpl implements ConcessionariaController {
     @Autowired
-    ConcessionariaUseCase concessionariaUseCase;
+    ConcessionariaUseCaseImpl concessionariaUseCaseImpl;
 
     @Autowired
     UsuarioUseCaseImpl usuarioUseCase;
@@ -27,7 +27,7 @@ public class ConcessionariaControllerImpl implements ConcessionariaController {
     public ResponseEntity obterConcessionaria(@RequestHeader(value = "Authorization") String token) {
 
         var usuario = usuarioUseCase.obterUsuarioPorToken(token);
-        var response = concessionariaUseCase.obterConcessionaria(usuario);
+        var response = concessionariaUseCaseImpl.obterConcessionaria(usuario);
 
         if (response != null) {
             return new ResponseEntity<>(response, HttpStatus.ACCEPTED);
@@ -40,7 +40,7 @@ public class ConcessionariaControllerImpl implements ConcessionariaController {
     public ResponseEntity<String> cadastrarConcessionaria(@RequestHeader(value = "Authorization") String token, @Valid @RequestBody CadastrarConcessionariaForm cadastrarConcessionariaForm) {
 
         var usuario = usuarioUseCase.obterUsuarioPorToken(token);
-        var concessionariaCadastrada = concessionariaUseCase.cadastrarConcessionaria(cadastrarConcessionariaForm);
+        var concessionariaCadastrada = concessionariaUseCaseImpl.cadastrarConcessionaria(cadastrarConcessionariaForm);
         var response = usuarioUseCase.vincularConcessionaria(usuario, concessionariaCadastrada);
 
         return ResponseEntity.status(response.getStatus().value()).body(response.getResposta());
@@ -50,7 +50,7 @@ public class ConcessionariaControllerImpl implements ConcessionariaController {
     public ResponseEntity<?> atualizarConcessionaria(@RequestHeader(value = "Authorization") String token, @Valid @RequestBody AtualizacaoConcessionariaForm atualizacaoConcessionariaForm) {
 
         var usuario = usuarioUseCase.obterUsuarioPorToken(token);
-        return concessionariaUseCase.atualizarConcessionaria(usuario, atualizacaoConcessionariaForm);
+        return concessionariaUseCaseImpl.atualizarConcessionaria(usuario, atualizacaoConcessionariaForm);
 
     }
 
@@ -58,7 +58,7 @@ public class ConcessionariaControllerImpl implements ConcessionariaController {
     public List<Carro> obterCarrosConcessionaria(@RequestHeader(value = "Authorization") String token) {
 
         var usuario = usuarioUseCase.obterUsuarioPorToken(token);
-        return concessionariaUseCase.obterCarrosConcessionaria(usuario);
+        return concessionariaUseCaseImpl.obterCarrosConcessionaria(usuario);
 
     }
 
@@ -67,7 +67,7 @@ public class ConcessionariaControllerImpl implements ConcessionariaController {
 
         var usuario = usuarioUseCase.obterUsuarioPorToken(token);
 
-        return concessionariaUseCase.deletarConcessionaria(usuario);
+        return concessionariaUseCaseImpl.deletarConcessionaria(usuario);
 
     }
 

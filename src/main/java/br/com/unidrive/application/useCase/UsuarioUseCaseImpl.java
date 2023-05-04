@@ -35,7 +35,7 @@ public class UsuarioUseCaseImpl implements UsuarioUseCase {
     TokenService tokenService;
 
     @Autowired
-    EnderecoUseCase enderecoUseCase;
+    EnderecoUseCaseImpl enderecoUseCaseImpl;
 
     @Autowired
     AgendamentoUseCaseImpl agendamentoUseCaseImpl;
@@ -148,7 +148,7 @@ public class UsuarioUseCaseImpl implements UsuarioUseCase {
 
         usuario.setTelefone(usuarioForm.getTelefone());
 
-        usuario.setEndereco(enderecoUseCase.cadastrarEndereco(usuarioForm.getEndereco()));
+        usuario.setEndereco(enderecoUseCaseImpl.cadastrarEndereco(usuarioForm.getEndereco()));
 
         return usuario;
 

@@ -2,6 +2,7 @@ package br.com.unidrive.application.useCase;
 
 import br.com.unidrive.application.controller.form.AtualizacaoConcessionariaForm;
 import br.com.unidrive.application.controller.form.CadastrarConcessionariaForm;
+import br.com.unidrive.domain.contract.useCase.ConcessionariaUseCase;
 import br.com.unidrive.domain.model.Agendamento;
 import br.com.unidrive.domain.model.Carro;
 import br.com.unidrive.domain.model.Concessionaria;
@@ -18,15 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ConcessionariaUseCase {
+public class ConcessionariaUseCaseImpl implements ConcessionariaUseCase {
 
     @Autowired
     ConcessionariaRepository concessionariaRepository;
 
     @Autowired
-    EnderecoUseCase enderecoUseCase;
+    EnderecoUseCaseImpl enderecoUseCaseImpl;
     @Autowired
-    CarroUseCase carroUseCase;
+    CarroUseCaseImpl carroUseCaseImpl;
 
     @Autowired
     AgendamentoUseCaseImpl agendamentoUseCaseImpl;
@@ -43,7 +44,7 @@ public class ConcessionariaUseCase {
 
         var time = Timestamp.valueOf(LocalDateTime.now()).toLocalDateTime().toString();
 
-        var endereco = enderecoUseCase.cadastrarEndereco(cadastrarConcessionariaForm.getEnderecoForm());
+        var endereco = enderecoUseCaseImpl.cadastrarEndereco(cadastrarConcessionariaForm.getEnderecoForm());
 
         var concessionaria = new Concessionaria(
                 cadastrarConcessionariaForm,
@@ -89,7 +90,7 @@ public class ConcessionariaUseCase {
 
         if (concessionaria != null) {
 
-            return carroUseCase.obterCarrosPorConcessionaria(concessionaria);
+            return carroUseCaseImpl.obterCarrosPorConcessionaria(concessionaria);
 
         }
         return new ArrayList<>();
