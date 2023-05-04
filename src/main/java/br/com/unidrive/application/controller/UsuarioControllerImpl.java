@@ -2,6 +2,7 @@ package br.com.unidrive.application.controller;
 
 
 import br.com.unidrive.application.controller.form.UsuarioForm;
+import br.com.unidrive.domain.contract.controller.UsuarioController;
 import br.com.unidrive.domain.contract.useCase.UsuarioUseCase;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +13,8 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/usuario")
-public class UsuarioController {
+public class UsuarioControllerImpl implements UsuarioController {
+
     @Autowired
     UsuarioUseCase useCase;
 

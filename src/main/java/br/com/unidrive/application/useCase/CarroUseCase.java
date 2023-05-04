@@ -17,11 +17,19 @@ import java.util.List;
 @Component
 public class CarroUseCase {
 
-
     @Autowired
     CarroRepository carroRepository;
 
-    public ResponseEntity cadastrarCarros(List<CarroForm> carroFormList, Usuario usuario) {
+    @Autowired
+    UsuarioUseCaseImpl usuarioUseCase;
+
+    @Autowired
+    ConcessionariaUseCase concessionariaUseCase;
+
+
+    public ResponseEntity cadastrarCarros(String token, List<CarroForm> carroFormList) {
+
+        var usuario = usuarioUseCase.obterUsuarioPorToken(token);
 
         if (carroFormList.isEmpty()) return ResponseEntity.noContent().build();
 
@@ -45,7 +53,11 @@ public class CarroUseCase {
 
     }
 
-    public ResponseEntity deletarCarros(String carroId, Concessionaria concessionaria) {
+    public ResponseEntity deletarCarros(String token, String carroId) {
+
+        var usuario = usuarioUseCase.obterUsuarioPorToken(token);
+
+        var concessionaria = concessionariaUseCase.obterConcessionaria(usuario);
 
         var carroOp = carroRepository.findById(Long.parseLong(carroId));
 
@@ -72,8 +84,11 @@ public class CarroUseCase {
 
     }
 
-    public ResponseEntity atualizarCarro(Concessionaria concessionaria, AtualizacaoCarroForm carroForm, String carroId) {
+    public ResponseEntity atualizarCarro(String token, AtualizacaoCarroForm carroForm, String carroId) {
 
+        var usuario = usuarioUseCase.obterUsuarioPorToken(token);
+
+        Concessionaria concessionaria = usuario.getConcessionaria();
 
         var carroOp = carroRepository.findById(Long.valueOf(carroId));
 
