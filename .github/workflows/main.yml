@@ -1,6 +1,6 @@
 name: Testes e Cobertura
 
-on: [push]  # Executar o workflow em cada push para o repositório.
+on: [push]  # Executar o workflow em cada push para o repositório
 
 jobs:
   testes-e-cobertura:
@@ -17,14 +17,11 @@ jobs:
           java-version: '11'  # Versão 11 do Java
           distribution: 'adopt'  # Escolha 'adopt' ou 'temurin', ou outro distribuidor suportado
 
-      - name: Configurar JAVA_HOME
-        run: echo "JAVA_HOME=${{ env.JAVA_HOME }}" >> $GITHUB_ENV
+      - name: Configurar MAVEN_OPTS
+        run: echo "MAVEN_OPTS=-Dmaven.repo.local=$HOME/.m2/repository" >> $GITHUB_ENV
 
-      - name: Configurar Maven
-        run: echo "MAVEN_OPTS='-Dmaven.repo.local=$HOME/.m2/repository'" >> $GITHUB_ENV
-
-      - name: Verificar variável de ambiente JAVA_HOME
-        run: echo $JAVA_HOME
+      - name: Verificar variável de ambiente MAVEN_OPTS
+        run: echo $MAVEN_OPTS
 
       - name: Compilar e Testar a aplicação
         run: mvn clean package
