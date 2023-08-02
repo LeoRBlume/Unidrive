@@ -17,8 +17,14 @@ jobs:
           java-version: '11'  # Versão 11 do Java
           distribution: 'adopt'  # Escolha 'adopt' ou 'temurin', ou outro distribuidor suportado
 
-      - name: Compilar o código
-        run: javac -d classes src/*.java  # Ajuste o comando conforme a estrutura do seu projeto
+      - name: Configurar JAVA_HOME
+        run: echo "JAVA_HOME=$(which java)" >> $GITHUB_ENV
+
+      - name: Configurar Maven
+        run: echo "MAVEN_OPTS='-Dmaven.repo.local=$HOME/.m2/repository'" >> $GITHUB_ENV
+
+      - name: Compilar e Testar a aplicação
+        run: mvn clean package
 
       - name: Executar os testes com PITest
         run: mvn org.pitest:pitest-maven:mutationCoverage
