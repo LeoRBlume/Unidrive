@@ -1,6 +1,6 @@
 name: Testes e Cobertura
 
-on: [push]  # Executar o workflow em cada push para o repositório
+on: [push]  # Executar o workflow em cada push para o repositório.
 
 jobs:
   testes-e-cobertura:
