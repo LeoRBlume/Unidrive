@@ -1,0 +1,29 @@
+name: Testes e Cobertura
+
+on: [push]  # Executar o workflow em cada push para o repositório
+
+jobs:
+  testes-e-cobertura:
+    name: Testes e Cobertura
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout do código
+        uses: actions/checkout@v2
+
+      - name: Configurar ambiente Java
+        uses: actions/setup-java@v2
+        with:
+          java-version: 'adopt@1.11'  # Ajuste para a versão 11 do Java
+
+      - name: Compilar o código
+        run: javac -d classes src/*.java  # Ajuste o comando conforme a estrutura do seu projeto
+
+      - name: Executar os testes com PITest
+        run: mvn org.pitest:pitest-maven:mutationCoverage
+
+      - name: Publicar relatório de cobertura
+        uses: actions/upload-artifact@v2
+        with:
+          name: pitest-report
+          path: target/pit-reports/
