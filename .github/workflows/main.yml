@@ -14,7 +14,8 @@ jobs:
       - name: Configurar ambiente Java
         uses: actions/setup-java@v2
         with:
-          java-version: 'adopt@1.11'  # Ajuste para a versão 11 do Java
+          java-version: '11'  # Versão 11 do Java
+          distribution: 'adopt'  # Escolha 'adopt' ou 'temurin', ou outro distribuidor suportado
 
       - name: Compilar o código
         run: javac -d classes src/*.java  # Ajuste o comando conforme a estrutura do seu projeto
