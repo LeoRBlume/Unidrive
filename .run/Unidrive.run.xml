@@ -1,0 +1,6 @@
+<component name="ProjectRunConfigurationManager">
+    <configuratio>
+        <option name="MAIN_CLASS_NAME" value="br.com.unidrive.UnidriveApplication"/>
+        <option name="VM_PARAMETERS" value="-Dspring.profiles.active=local"/>
+    </configuratio>
+</component>
