@@ -18,10 +18,13 @@ jobs:
           distribution: 'adopt'  # Escolha 'adopt' ou 'temurin', ou outro distribuidor suportado
 
       - name: Configurar JAVA_HOME
-        run: echo "JAVA_HOME=$(which java)" >> $GITHUB_ENV
+        run: echo "JAVA_HOME=${{ env.JAVA_HOME }}" >> $GITHUB_ENV
 
       - name: Configurar Maven
         run: echo "MAVEN_OPTS='-Dmaven.repo.local=$HOME/.m2/repository'" >> $GITHUB_ENV
+
+      - name: Verificar variável de ambiente JAVA_HOME
+        run: echo $JAVA_HOME
 
       - name: Compilar e Testar a aplicação
         run: mvn clean package
