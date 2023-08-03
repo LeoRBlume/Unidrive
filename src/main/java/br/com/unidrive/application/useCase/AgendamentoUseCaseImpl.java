@@ -10,11 +10,12 @@ import br.com.unidrive.infrastructure.repository.AgendamentoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
+@Service
 public class AgendamentoUseCaseImpl implements AgendamentoUseCase {
 
     @Autowired
