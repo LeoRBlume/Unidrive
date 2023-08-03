@@ -42,16 +42,14 @@ public class CarroControllerImpl implements CarroController {
 
 
     @GetMapping
-    public List<Carro> obterTodosCarros() {
+    public List<Carro> obterCarros(@RequestParam(required = false) String marca,
+                                   @RequestParam(required = false) String modelo) {
+
+        if (marca != null || modelo != null) {
+            return carroUseCaseImpl.filtrarCarrosPorMarcaEModelo(marca, modelo);
+        }
 
         return carroUseCaseImpl.obterTodosCarros();
-
-    }
-
-    @GetMapping("/filtro")
-    public FiltroDto listarTodasAsMarcasEModelos() {
-
-        return carroUseCaseImpl.obterListaMarcaCarros();
 
     }
 
@@ -59,6 +57,13 @@ public class CarroControllerImpl implements CarroController {
     public ResponseEntity atualizarCarro(@RequestBody AtualizacaoCarroForm carroForm, @RequestHeader(value = "Authorization") String token, @PathVariable String carroId) {
 
         return carroUseCaseImpl.atualizarCarro(token, carroForm, carroId);
+    }
+
+    @GetMapping("/filtro")
+    public FiltroDto listarTodasAsMarcasEModelos() {
+
+        return carroUseCaseImpl.obterListaMarcaCarros();
+
     }
 
 }

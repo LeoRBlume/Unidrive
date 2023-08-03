@@ -7,7 +7,6 @@ import br.com.unidrive.application.controller.form.CarroForm;
 import br.com.unidrive.domain.contract.useCase.CarroUseCase;
 import br.com.unidrive.domain.model.Carro;
 import br.com.unidrive.domain.model.Concessionaria;
-import br.com.unidrive.infrastructure.enums.StringToLongEnum;
 import br.com.unidrive.infrastructure.repository.CarroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -135,6 +134,22 @@ public class CarroUseCaseImpl implements CarroUseCase {
 
         else return ResponseEntity.badRequest().build();
 
+    }
+
+    @Override
+    public List<Carro> filtrarCarrosPorMarcaEModelo(String marca, String modelo) {
+
+        if (marca != null && modelo != null) {
+
+            return carroRepository.findAllByMarcaAndModelo(marca, modelo.toLowerCase());
+
+        } else if (marca != null) {
+
+            return carroRepository.findAllByMarca(marca);
+
+        }
+
+        return null;
     }
 
     public FiltroDto obterListaMarcaCarros() {

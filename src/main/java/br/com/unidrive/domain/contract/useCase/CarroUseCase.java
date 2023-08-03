@@ -21,6 +21,5 @@ public interface CarroUseCase {
     ResponseEntity atualizarCarro(String token, AtualizacaoCarroForm carroForm, String carroId);
 
     ResponseEntity obterCarroPorId(String carroId);
-
-
+    List<Carro> filtrarCarrosPorMarcaEModelo(String marca, String modelo);
 }

@@ -15,7 +15,7 @@ public interface CarroController {
 
     public ResponseEntity obterCarro(String carroId);
 
-    public List<Carro> obterTodosCarros();
+    public List<Carro> obterCarros(String marca, String modelo);
 
     public ResponseEntity atualizarCarro(AtualizacaoCarroForm carroForm, String token, String carroId);
 
