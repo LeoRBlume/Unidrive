@@ -1,0 +1,30 @@
+name: Build and Create Pull Request
+on:
+  push:
+    branches:
+      - sua_branch  # Substitua "sua_branch" pelo nome da sua branch (onde você fará as mudanças)
+
+jobs:
+  build_and_create_pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+
+      - name: Build with Maven
+        run: mvn package  # Ou o comando necessário para compilar sua aplicação com o Maven
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: develop
+          title: "Automatically created Pull Request"
+          body: "This PR was automatically created by GitHub Actions after successful build on sua_branch."
+          draft: false
+        if: ${{ success() }}

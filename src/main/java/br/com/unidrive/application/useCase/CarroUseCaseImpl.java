@@ -1,10 +1,13 @@
 package br.com.unidrive.application.useCase;
 
+import br.com.unidrive.application.controller.dto.FiltroDto;
+import br.com.unidrive.application.controller.dto.ListaMarcaCarrosDto;
 import br.com.unidrive.application.controller.form.AtualizacaoCarroForm;
 import br.com.unidrive.application.controller.form.CarroForm;
 import br.com.unidrive.domain.contract.useCase.CarroUseCase;
 import br.com.unidrive.domain.model.Carro;
 import br.com.unidrive.domain.model.Concessionaria;
+import br.com.unidrive.infrastructure.enums.StringToLongEnum;
 import br.com.unidrive.infrastructure.repository.CarroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,7 +15,10 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class CarroUseCaseImpl implements CarroUseCase {
@@ -130,4 +136,36 @@ public class CarroUseCaseImpl implements CarroUseCase {
         else return ResponseEntity.badRequest().build();
 
     }
+
+    public FiltroDto obterListaMarcaCarros() {
+
+        var carros = obterTodosCarros();
+
+        Map<String, List<Carro>> hash = new HashMap<>();
+
+        for (Carro c : carros) {
+            List<Carro> listaCarro = hash.get(c.getMarca());
+
+            if (listaCarro == null) {
+                listaCarro = new ArrayList<>();
+                listaCarro.add(c);
+                hash.put(c.getMarca(), listaCarro);
+            } else {
+                hash.get(c.getMarca()).add(c);
+            }
+        }
+
+        var listaCarrosMarca = new ArrayList<ListaMarcaCarrosDto>();
+
+        // Iterando pelo mapa e adicionando as chaves e listas à lista de objetos
+        for (Map.Entry<String, List<Carro>> entry : hash.entrySet()) {
+            listaCarrosMarca.add(new ListaMarcaCarrosDto(entry.getKey(), entry.getValue()));
+        }
+
+        var filtroDto = new FiltroDto(listaCarrosMarca);
+
+        return filtroDto;
+    }
+
+
 }

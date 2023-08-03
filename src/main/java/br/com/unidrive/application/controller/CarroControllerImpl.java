@@ -1,5 +1,6 @@
 package br.com.unidrive.application.controller;
 
+import br.com.unidrive.application.controller.dto.FiltroDto;
 import br.com.unidrive.application.controller.form.AtualizacaoCarroForm;
 import br.com.unidrive.application.controller.form.CarroForm;
 import br.com.unidrive.domain.contract.controller.CarroController;
@@ -44,6 +45,13 @@ public class CarroControllerImpl implements CarroController {
     public List<Carro> obterTodosCarros() {
 
         return carroUseCaseImpl.obterTodosCarros();
+
+    }
+
+    @GetMapping("/filtro")
+    public FiltroDto listarTodasAsMarcasEModelos() {
+
+        return carroUseCaseImpl.obterListaMarcaCarros();
 
     }
 
